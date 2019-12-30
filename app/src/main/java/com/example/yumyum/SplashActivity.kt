@@ -7,7 +7,7 @@ import android.os.Handler
 
 class SplashActivity : AppCompatActivity() {
 
-    // One second.
+    // 2.5 seconds.
     private val splashDelay: Long = 2500;
 
     override fun onCreate(savedInstanceState: Bundle?) {

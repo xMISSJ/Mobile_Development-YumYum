@@ -24,7 +24,7 @@
         android:id="@+id/ivCookingPot"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:src="@drawable/cooking_pot"
+        android:src="@drawable/cooking_pot_large"
         app:layout_constraintBottom_toTopOf="@+id/ivLogo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"

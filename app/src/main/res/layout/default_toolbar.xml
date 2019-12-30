@@ -13,9 +13,9 @@
         android:src="@drawable/profile_picture_small" />
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:layout_width="155dp"
-        android:layout_height="50dp"
+        android:layout_width="135dp"
+        android:layout_height="45dp"
         android:layout_gravity="center"
-        android:src="@drawable/logo"/>
+        android:src="@drawable/logo_small"/>
 
 </androidx.appcompat.widget.Toolbar>
