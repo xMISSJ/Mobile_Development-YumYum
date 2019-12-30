@@ -1,0 +1,13 @@
+<menu
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.bottomnavigationbar.MainActivity">
+
+    <item
+        android:id="@+id/recipeFragment"
+        android:title="@string/recipe_fagment_name" />
+    <item
+        android:id="@+id/rateFragment"
+        android:title="@string/rating_fragment_name" />
+
+</menu>

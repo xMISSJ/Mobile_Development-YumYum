@@ -35,10 +35,7 @@ class AddActivity : AppCompatActivity() {
         toolbar = findViewById(R.id.toolbarAdd);
         setSupportActionBar(toolbar);
 
-        // Add back arrow.
+        // Set back arrow and title.
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
-
-        toolbar.title = "Add New Recipe";
-
     }
 }

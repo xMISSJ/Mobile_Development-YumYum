@@ -4,4 +4,11 @@
     <!-- For activity_home.xml -->
     <string name="cooking_pot_description">It\'s a cooking pot.</string>
     <string name="recipe_book_description">It\'s a recipe book.</string>
+
+    <!-- For activity_add.xml -->
+    <string name="add_activity_title">Add New Recipe</string>
+
+    <!-- For menu_main.xml -->
+    <string name="recipe_fagment_name">Recipe</string>
+    <string name="rating_fragment_name">Rating</string>
 </resources>

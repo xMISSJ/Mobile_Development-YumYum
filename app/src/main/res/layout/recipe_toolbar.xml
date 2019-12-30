@@ -12,6 +12,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="@font/georgia"
-        android:textSize="22sp" />
+        android:text="@string/add_activity_title"
+        android:textColor="@color/white"
+        android:textSize="21sp" />
 
 </androidx.appcompat.widget.Toolbar>
