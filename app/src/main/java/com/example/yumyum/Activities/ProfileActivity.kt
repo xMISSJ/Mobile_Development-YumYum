@@ -1,7 +1,8 @@
-package com.example.yumyum
+package com.example.yumyum.Activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.yumyum.R
 
 class ProfileActivity : AppCompatActivity() {
 

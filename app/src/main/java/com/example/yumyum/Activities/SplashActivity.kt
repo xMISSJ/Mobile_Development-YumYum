@@ -1,9 +1,10 @@
-package com.example.yumyum
+package com.example.yumyum.Activities
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import com.example.yumyum.R
 
 class SplashActivity : AppCompatActivity() {
 

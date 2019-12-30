@@ -2,7 +2,8 @@
 <resources>
     <color name="colorToolbar">#666666</color>
     <color name="colorStatusBar">#575757</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorAccent">#575757</color>
     <color name="backgroundColor">#efefef</color>
     <color name="splashBackgroundColor">#D9D9D9</color>
+    <color name="white">#ffffff</color>
 </resources>

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">YumYum</string>
+
+    <!-- For activity_home.xml -->
+    <string name="cooking_pot_description">It\'s a cooking pot.</string>
+    <string name="recipe_book_description">It\'s a recipe book.</string>
 </resources>
