@@ -4,7 +4,7 @@
     <color name="colorStatusBar">#575757</color>
     <color name="colorAccent">#575757</color>
     <color name="addButtonColor">#363636</color>
-    <color name="backgroundColor">#efefef</color>
+    <color name="backgroundColor">#EFEFEF</color>
     <color name="splashBackgroundColor">#D9D9D9</color>
     <color name="white">#FFFFFF</color>
 </resources>

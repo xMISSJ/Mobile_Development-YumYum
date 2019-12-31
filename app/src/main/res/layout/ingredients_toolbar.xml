@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="@font/georgia"
-        android:text="@string/recipe_activity_title"
+        android:text="@string/ingredients_activity_title"
         android:textColor="@color/white"
         android:textSize="21sp" />
 

@@ -8,7 +8,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.default_toolbar.*
 import com.example.yumyum.R
@@ -47,7 +46,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun onAddClick() {
         // From HomeActivity to AddActivity.
-        val intent = Intent(this@HomeActivity, AddActivity::class.java);
+        val intent = Intent(this@HomeActivity, RecipeActivity::class.java);
         startActivity(intent);
 
         // Animation to fade into the AddActivity.
@@ -59,6 +58,8 @@ class HomeActivity : AppCompatActivity() {
         bottomNavigation = findViewById(R.id.navView);
         view = findViewById(R.id.parentMain);
         toolbar = view.findViewById(R.id.toolbarHome);
+
+        setSupportActionBar(toolbar);
     }
 
     private fun initNavigation() {
@@ -70,7 +71,9 @@ class HomeActivity : AppCompatActivity() {
 
         // Connect the navHostFragment with the Toolbar.
         val appBarConfiguration = AppBarConfiguration(navController.graph);
-        toolbar.setupWithNavController(navController, appBarConfiguration);
+
+        // Automatically handles the back button.
+        // toolbar.setupWithNavController(navController, appBarConfiguration);
 
     }
 }

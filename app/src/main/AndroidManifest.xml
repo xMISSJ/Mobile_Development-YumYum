@@ -9,11 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Activities.InstructionsActivity"></activity>
+        <activity android:name=".Activities.IngredientsActivity" />
         <activity
             android:name=".Activities.HomeActivity"
             android:label=""
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".Activities.AddActivity" />
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".Activities.RecipeActivity" />
         <activity android:name=".Activities.ProfileActivity" />
         <activity android:name=".Activities.SplashActivity">
             <intent-filter>
