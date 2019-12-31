@@ -70,7 +70,7 @@ class HomeActivity : AppCompatActivity() {
 
         // Connect the navHostFragment with the Toolbar.
         val appBarConfiguration = AppBarConfiguration(navController.graph);
-        toolbar.setupWithNavController(navController, appBarConfiguration)
+        toolbar.setupWithNavController(navController, appBarConfiguration);
 
     }
 }

@@ -12,7 +12,7 @@
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/rateFragment"
-        android:name="com.example.yumyum.Fragments.RatingFragment"
+        android:name="com.example.yumyum.Fragments.RateFragment"
         android:label="Rate"
-        tools:layout="@layout/fragment_rating" />
+        tools:layout="@layout/fragment_rate" />
 </navigation>

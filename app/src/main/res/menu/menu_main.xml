@@ -4,7 +4,7 @@
     tools:context="com.example.bottomnavigationbar.MainActivity">
 
     <item
-        android:id="@+id/recipeFragment"
+        android:id="@+id/homeFragment"
         android:title="" />
     <item
         android:id="@+id/rateFragment"
