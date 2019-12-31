@@ -11,4 +11,6 @@
     <!-- For menu_main.xml -->
     <string name="recipe_fagment_name">Recipe</string>
     <string name="rating_fragment_name">Rating</string>
+    <string name="title_activity_main">MainActivity</string>
+
 </resources>

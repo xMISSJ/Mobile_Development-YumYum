@@ -5,9 +5,9 @@
 
     <item
         android:id="@+id/recipeFragment"
-        android:title="@string/recipe_fagment_name" />
+        android:title="" />
     <item
         android:id="@+id/rateFragment"
-        android:title="@string/rating_fragment_name" />
+        android:title="" />
 
 </menu>
