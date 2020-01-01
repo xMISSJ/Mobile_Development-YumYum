@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.activity_ingredients.*
 class IngredientsActivity : AppCompatActivity() {
 
     private lateinit var toolbar: Toolbar;
-    private lateinit var view: View;
+    private lateinit var view : View;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
