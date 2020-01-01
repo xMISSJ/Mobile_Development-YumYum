@@ -9,7 +9,6 @@ import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
-import com.example.yumyum.Recipe
 import kotlinx.android.synthetic.main.activity_recipe.*
 
 const val PROFILE_PICTURE_REQUEST_CODE = 100;
@@ -25,7 +24,7 @@ class RecipeActivity : AppCompatActivity() {
 
         setToolbar();
 
-        ivProfilePicture.setOnClickListener {
+        btnAddImage.setOnClickListener {
             onPictureClick();
         }
 
@@ -72,7 +71,7 @@ class RecipeActivity : AppCompatActivity() {
             intent.putExtra("SERVINGS", servings);
             startActivity(intent);
         } else {
-            Toast.makeText(this, "One of the fields are empty.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "One of the fields or multiple are empty.", Toast.LENGTH_LONG).show();
         }
         // Animation to fade into the IngredientsActivity.
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);

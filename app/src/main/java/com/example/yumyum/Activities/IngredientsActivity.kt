@@ -22,6 +22,10 @@ class IngredientsActivity : AppCompatActivity() {
             onClick();
         }
 
+        btnAddIngredient.setOnClickListener {
+            onIngredientAdd();
+        }
+
         setToolbar();
     }
 
@@ -50,5 +54,9 @@ class IngredientsActivity : AppCompatActivity() {
         toolbar = view.findViewById(R.id.toolbarIngredients);
         setSupportActionBar(toolbar);
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
+    }
+
+    private fun onIngredientAdd() {
+
     }
 }

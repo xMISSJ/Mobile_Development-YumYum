@@ -22,5 +22,8 @@
 
     <!-- For activity_ingredients.xml -->
     <string name="ingredients_button_text">Done</string>
+    <string name="add_image_text">Add Image</string>
+    <string name="character_text">•&#160;</string>
+    <string name="ingredient_text">Some Ingredient</string>
 
 </resources>

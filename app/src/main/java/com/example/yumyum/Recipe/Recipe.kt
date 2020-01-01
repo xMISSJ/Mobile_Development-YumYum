@@ -1,4 +1,4 @@
-package com.example.yumyum
+package com.example.yumyum.Recipe
 
 import android.net.Uri
 import android.os.Parcelable
