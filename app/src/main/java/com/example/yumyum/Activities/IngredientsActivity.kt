@@ -1,10 +1,14 @@
 package com.example.yumyum.Activities
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +17,7 @@ import com.example.yumyum.Ingredient.Ingredient
 import com.example.yumyum.Ingredient.IngredientsAdapter
 import com.example.yumyum.R
 import kotlinx.android.synthetic.main.activity_ingredients.*
+
 
 class IngredientsActivity : AppCompatActivity() {
 
@@ -29,19 +34,35 @@ class IngredientsActivity : AppCompatActivity() {
         setToolbar();
         initViews();
 
-        btnDone.setOnClickListener {
-            onClick();
-        }
-
         btnAddIngredient.setOnClickListener {
             onIngredientAdd();
+        }
+
+        btnDone.setOnClickListener {
+            onNextClick();
         }
     }
 
     private fun onIngredientAdd() {
+
+        //TODO: Perhaps activate this function on keyboard enter press.
+        //TODO: Retrieve the extra from RecipeActivity. Use this retrieved extra to send to InstructionsActivity.
+
+        hideKeyboard(this.rvIngredients);
+
         // Check whether the input is not blank.
         if (etAddIngredient.text.toString().isNotBlank()){
 
+            val ingredient = Ingredient("• ", etAddIngredient.text.toString());
+
+            // Add this ingredient to the list. This list will now be shown in adapter and thus in the RecyclerView.
+            ingredientList.add(ingredient);
+            ingredientAdapter.notifyDataSetChanged();
+
+            // Input field is cleared after.
+            etAddIngredient.text?.clear();
+        } else {
+            Toast.makeText(this, "Field is empty.", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -64,9 +85,15 @@ class IngredientsActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun onClick() {
-        val intent = Intent(this@IngredientsActivity, InstructionsActivity::class.java);
-        startActivity(intent);
+    private fun onNextClick() {
+
+        // Check whether RecyclerView has items.
+        if (ingredientAdapter.itemCount != 0) {
+            val intent = Intent(this@IngredientsActivity, InstructionsActivity::class.java);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Please fill in at least one ingredient.", Toast.LENGTH_LONG).show();
+        }
 
         // Fading animation when going from IngredientsActivity to InstructionsActivity.
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
@@ -109,6 +136,12 @@ class IngredientsActivity : AppCompatActivity() {
             }
         }
         return ItemTouchHelper(callback)
+    }
+
+    // Hide keyboard function.
+    private fun Context.hideKeyboard(view: View) {
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0);
     }
 
 }

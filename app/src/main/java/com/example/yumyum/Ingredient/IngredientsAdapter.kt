@@ -46,7 +46,7 @@ class IngredientsAdapter (private val ingredients: List<Ingredient>) : RecyclerV
      */
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(ingredient: Ingredient) {
-            itemView.tvCharacter.text = ingredient.numerationCharacter.toString();
+            itemView.tvCharacter.text = ingredient.numerationCharacter;
             itemView.tvIngredient.text = ingredient.ingredient;
         }
     }

@@ -57,6 +57,8 @@ class RecipeActivity : AppCompatActivity() {
 
     private fun onClick() {
 
+        //TODO: Perhaps activate this function on keyboard enter press.
+
         if (etRecipeName.text.isNotBlank() && etServings.text.isNotBlank()) {
             var recipeName = etRecipeName.text.toString();
             var recipeImage = profileImageUri;
