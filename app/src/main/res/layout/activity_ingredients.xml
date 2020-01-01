@@ -68,6 +68,7 @@
         app:srcCompat="@drawable/wheat" />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -78,6 +79,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etAddIngredient"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Add your ingredient"
@@ -85,5 +87,14 @@
             tools:layout_editor_absoluteX="-6dp"
             tools:layout_editor_absoluteY="450dp" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvIngredients"
+        android:layout_width="409dp"
+        android:layout_height="532dp"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarIngredients" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
