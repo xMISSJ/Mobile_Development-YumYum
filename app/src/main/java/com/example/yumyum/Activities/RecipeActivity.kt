@@ -69,8 +69,8 @@ class RecipeActivity : AppCompatActivity() {
 
             // Put the variables as extra to send them to the IngredientsActivity.
             intent.putExtra("RECIPE_NAME", recipeName);
-            intent.putExtra("RECIPE_IMAGE", recipeImage);
-            intent.putExtra("SERVINGS", servings);
+            intent.putExtra("RECIPE_IMAGE", recipeImage.toString()); // Convert Uri to String.
+            intent.putExtra("RECIPE_SERVINGS", servings);
             startActivity(intent);
         } else {
             Toast.makeText(this, "One of the fields or multiple are empty.", Toast.LENGTH_LONG).show();

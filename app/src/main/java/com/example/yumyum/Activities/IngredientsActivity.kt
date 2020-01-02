@@ -3,6 +3,7 @@ package com.example.yumyum.Activities
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -17,6 +18,7 @@ import com.example.yumyum.Ingredient.Ingredient
 import com.example.yumyum.Ingredient.IngredientsAdapter
 import com.example.yumyum.R
 import kotlinx.android.synthetic.main.activity_ingredients.*
+import java.io.Serializable
 
 
 class IngredientsActivity : AppCompatActivity() {
@@ -27,12 +29,17 @@ class IngredientsActivity : AppCompatActivity() {
     private val ingredientList = arrayListOf<Ingredient>();
     private val ingredientAdapter = IngredientsAdapter(ingredientList);
 
+    private var recipeName: String? = null;
+    private var recipeImage: Uri? = null;
+    private var recipeServings: String? = null;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingredients);
 
         setToolbar();
         initViews();
+        retrieveExtras();
 
         btnAddIngredient.setOnClickListener {
             onIngredientAdd();
@@ -46,7 +53,6 @@ class IngredientsActivity : AppCompatActivity() {
     private fun onIngredientAdd() {
 
         //TODO: Perhaps activate this function on keyboard enter press.
-        //TODO: Retrieve the extra from RecipeActivity. Use this retrieved extra to send to InstructionsActivity.
 
         hideKeyboard(this.rvIngredients);
 
@@ -71,6 +77,16 @@ class IngredientsActivity : AppCompatActivity() {
         // Check whether RecyclerView has items.
         if (ingredientAdapter.itemCount != 0) {
             val intent = Intent(this@IngredientsActivity, InstructionsActivity::class.java);
+
+            // Put the variables as extra to send them to the IngredientsActivity.
+            // They all have a "2" added to not confuse names with RecipeActivity.
+            intent.putExtra("RECIPE_NAME2", recipeName);
+            intent.putExtra("RECIPE_IMAGE2", recipeImage);
+            intent.putExtra("RECIPE_SERVINGS2", recipeServings);
+
+            // Add extras from this activity.
+            intent.putExtra("RECIPE_INGREDIENTS_LIST2", ingredientList);
+
             startActivity(intent);
         } else {
             Toast.makeText(this, "Please fill in at least one ingredient.", Toast.LENGTH_LONG).show();
@@ -85,6 +101,13 @@ class IngredientsActivity : AppCompatActivity() {
         rvIngredients.adapter = ingredientAdapter;
 
         createItemTouchHelper().attachToRecyclerView(rvIngredients);
+    }
+
+    private fun retrieveExtras() {
+        // Retrieve the extra from RecipeActivity. Use this retrieved extra to send to InstructionsActivity.
+        recipeName = intent.getStringExtra("RECIPE_NAME");
+        recipeImage = Uri.parse(intent.getStringExtra("RECIPE_IMAGE"));
+        recipeServings = intent.getStringExtra("RECIPE_SERVINGS");
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
