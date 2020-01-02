@@ -1,28 +1,47 @@
 package com.example.yumyum.Activities
 
+import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.InputMethodManager
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.yumyum.Instruction.Instruction
+import com.example.yumyum.Instruction.InstructionsAdapter
 import com.example.yumyum.R
+import kotlinx.android.synthetic.main.activity_ingredients.*
 import kotlinx.android.synthetic.main.activity_instructions.*
+import kotlinx.android.synthetic.main.activity_instructions.btnDone
 
 class InstructionsActivity : AppCompatActivity() {
 
     private lateinit var toolbar: Toolbar;
-    private lateinit var view : View;
+    private lateinit var view: View;
+
+    private val instructionList = arrayListOf<Instruction>();
+    private val instructionAdapter = InstructionsAdapter(instructionList);
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_instructions);
 
-        setToolbar();
+        btnAddInstruction.setOnClickListener {
+            onAddClick();
+        }
 
         btnDone.setOnClickListener {
-            onClick();
+            onDoneClick();
         }
+
+        setToolbar();
+        initViews();
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -44,25 +63,92 @@ class InstructionsActivity : AppCompatActivity() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
     }
 
-    private fun onClick() {
-        // Go to the RecipeActivity.
+    /**
+     * Create a touch helper to recognize when a user swipes an item from a recycler view.
+     * An ItemTouchHelper enables touch behavior (like swipe and move) on each ViewHolder,
+     * and uses callbacks to signal when a user is performing these actions.
+     */
+    private fun createItemTouchHelper(): ItemTouchHelper {
 
-        //TODO: use "Step${tvStep.text.toString()}." for the step.
+        // Callback which is used to create the ItemTouch helper. Only enables left swipe.
+        // Use ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT) to also enable right swipe.
+        val callback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+
+            // Enables or Disables the ability to move items up and down.
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
+                return false
+            }
+
+            // Callback triggered when a user swiped an item.
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+
+                // Delete ingredient at this position.
+                instructionList.removeAt(position);
+                instructionAdapter.notifyDataSetChanged();
+            }
+        }
+        return ItemTouchHelper(callback)
+    }
+
+    private fun onAddClick() {
+
+        //TODO: User can only put the steps numerical -> Step 1, step 2... || not Step 1, step 3.
+
+        hideKeyboard(this.rvInstructions);
+
+        // Check whether the texts are not empty.
+        if (etAddStep.text.toString().isNotBlank() && etAddInstruction.text.toString().isNotBlank()) {
+
+            val stepText = etAddStep.text.toString();
+
+            val instruction =
+                Instruction("Step ${stepText}.", etAddInstruction.text.toString());
+
+            // Add this ingredient to the list. This list will now be shown in adapter and thus in the RecyclerView.
+            instructionList.add(instruction);
+            instructionAdapter.notifyDataSetChanged();
+
+            // Input field is cleared after.
+            etAddStep.text?.clear();
+            etAddInstruction.text?.clear();
+        } else {
+            Toast.makeText(this, "One or more of the input fields are empty.", Toast.LENGTH_LONG)
+                .show();
+        }
+    }
+
+    private fun onDoneClick() {
+
+        // Check whether RecyclerView has items.
+        if (instructionAdapter.itemCount != 0) {
+            val intent = Intent(this@InstructionsActivity, HomeActivity::class.java);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Please fill in at least one ingredient.", Toast.LENGTH_LONG)
+                .show();
+        }
+
+        //Fading animation when going from InstructionsActivity to HomeActivity.
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
+    private fun initViews() {
+        rvInstructions.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        rvInstructions.adapter = instructionAdapter;
+
+        createItemTouchHelper().attachToRecyclerView(rvIngredients);
     }
 
 
-    //TODO: Use this commented code to recycle HomeActivity, instead of making a new instance.
-/*    override fun onSupportNavigateUp(): Boolean {
-
-        // Go from InstructionsActivity to HomeActivity.
-        val intent = Intent(this@InstructionsActivity, HomeActivity::class.java);
-
-        // If the activity already exists: instead of launching a new instance of this activity, all of the other activities on top of it will be closed.
-        // his Intent will be delivered to the (now on top) old activity as a new Intent.
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-        finish();
-        return true;
-    }*/
-
+    // Hide keyboard function.
+    private fun Context.hideKeyboard(view: View) {
+        val inputMethodManager =
+            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0);
+    }
 }

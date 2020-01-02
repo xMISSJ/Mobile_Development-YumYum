@@ -8,6 +8,18 @@
     android:background="@color/splashBackgroundColor"
     tools:context=".Activities.InstructionsActivity">
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvInstructions"
+        android:layout_width="409dp"
+        android:layout_height="465dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="130dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarInstructions" />
+
     <Button
         android:id="@+id/btnDone"
         android:layout_width="0dp"
@@ -62,9 +74,11 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etAddStep"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/instruction_step_hint_text" />
+            android:hint="@string/instruction_step_hint_text"
+            android:inputType="number" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -78,7 +92,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etAddIngredient"
+            android:id="@+id/etAddInstruction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/instruction_hint_text"
@@ -102,17 +116,5 @@
         app:layout_constraintEnd_toEndOf="parent">
 
     </com.google.android.material.floatingactionbutton.FloatingActionButton>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvInstructions"
-        android:layout_width="409dp"
-        android:layout_height="465dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="140dp"
-        android:layout_marginEnd="8dp"
-        app:layout_constraintBottom_toTopOf="@+id/textInputLayout2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarInstructions" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.yumyum.R
+import kotlinx.android.synthetic.main.activity_instructions.view.*
 import kotlinx.android.synthetic.main.item_ingredient.view.*
 import kotlinx.android.synthetic.main.item_instruction.view.*
 
@@ -47,7 +48,7 @@ class InstructionsAdapter (private val instructions: List<Instruction>) : Recycl
      */
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(instruction: Instruction) {
-            itemView.tvStep.text = instruction.step.toString();
+            itemView.tvStep.text = instruction.step;
             itemView.tvInstruction.text = instruction.instruction;
         }
     }

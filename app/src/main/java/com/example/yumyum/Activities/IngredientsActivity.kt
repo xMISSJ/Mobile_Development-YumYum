@@ -66,6 +66,20 @@ class IngredientsActivity : AppCompatActivity() {
         }
     }
 
+    private fun onNextClick() {
+
+        // Check whether RecyclerView has items.
+        if (ingredientAdapter.itemCount != 0) {
+            val intent = Intent(this@IngredientsActivity, InstructionsActivity::class.java);
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "Please fill in at least one ingredient.", Toast.LENGTH_LONG).show();
+        }
+
+        // Fading animation when going from IngredientsActivity to InstructionsActivity.
+        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
+    }
+
     private fun initViews() {
         rvIngredients.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rvIngredients.adapter = ingredientAdapter;
@@ -83,20 +97,6 @@ class IngredientsActivity : AppCompatActivity() {
             }
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    private fun onNextClick() {
-
-        // Check whether RecyclerView has items.
-        if (ingredientAdapter.itemCount != 0) {
-            val intent = Intent(this@IngredientsActivity, InstructionsActivity::class.java);
-            startActivity(intent);
-        } else {
-            Toast.makeText(this, "Please fill in at least one ingredient.", Toast.LENGTH_LONG).show();
-        }
-
-        // Fading animation when going from IngredientsActivity to InstructionsActivity.
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     private fun setToolbar() {

@@ -3,6 +3,7 @@ package com.example.yumyum.Activities
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.findNavController
@@ -19,6 +20,9 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar;
     private lateinit var view: View;
 
+    private lateinit var favoriteImage: ImageView;
+    private var favorite = false;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
@@ -30,6 +34,10 @@ class HomeActivity : AppCompatActivity() {
         btnAddRecipe.setOnClickListener {
             onAddClick();
         }
+/*
+        ivFavorite.setOnClickListener {
+            onFavoriteClick();
+        }*/
 
         setToolbar();
         initNavigation();
@@ -74,7 +82,14 @@ class HomeActivity : AppCompatActivity() {
 
         // Automatically handles the back button.
         // toolbar.setupWithNavController(navController, appBarConfiguration);
-
     }
+
+/*    private fun onFavoriteClick(){
+        // Recipe is favorited.
+        favorite = true;
+
+        // Change the image as feedback.
+        ivFavorite.setImageResource(R.drawable.ic_favorited);
+    }*/
 }
 
