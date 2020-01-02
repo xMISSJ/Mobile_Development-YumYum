@@ -53,7 +53,7 @@ class IngredientsActivity : AppCompatActivity() {
         // Check whether the input is not blank.
         if (etAddIngredient.text.toString().isNotBlank()){
 
-            val ingredient = Ingredient("• ", etAddIngredient.text.toString());
+            val ingredient = Ingredient("•  ", etAddIngredient.text.toString());
 
             // Add this ingredient to the list. This list will now be shown in adapter and thus in the RecyclerView.
             ingredientList.add(ingredient);

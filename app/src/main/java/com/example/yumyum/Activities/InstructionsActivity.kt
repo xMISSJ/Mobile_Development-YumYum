@@ -1,5 +1,6 @@
 package com.example.yumyum.Activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -45,6 +46,23 @@ class InstructionsActivity : AppCompatActivity() {
 
     private fun onClick() {
         // Go to the RecipeActivity.
+
+        //TODO: use "Step${tvStep.text.toString()}." for the step.
     }
+
+
+    //TODO: Use this commented code to recycle HomeActivity, instead of making a new instance.
+/*    override fun onSupportNavigateUp(): Boolean {
+
+        // Go from InstructionsActivity to HomeActivity.
+        val intent = Intent(this@InstructionsActivity, HomeActivity::class.java);
+
+        // If the activity already exists: instead of launching a new instance of this activity, all of the other activities on top of it will be closed.
+        // his Intent will be delivered to the (now on top) old activity as a new Intent.
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
+        return true;
+    }*/
 
 }

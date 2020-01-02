@@ -24,25 +24,27 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tvCharacter"
+                android:id="@+id/tvStep"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/character_text"
+                android:text="@string/instruction_step_text"
                 android:textAppearance="@style/TextAppearance.AppCompat.Body1"
                 android:textColor="@color/colorToolbar"
                 android:textSize="15sp"
-                android:textStyle="italic"
+                android:textStyle="bold"
                 android:fontFamily="@font/roboto"/>
 
             <TextView
-                android:id="@+id/tvIngredient"
+                android:id="@+id/tvInstruction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/ingredient_text"
-                android:textColor="@color/colorToolbar" />
+                android:text="@string/instruction_text"
+                android:textColor="@color/colorToolbar"
+                android:paddingTop="8dp"
+                android:fontFamily="@font/roboto"/>
 
         </LinearLayout>
 

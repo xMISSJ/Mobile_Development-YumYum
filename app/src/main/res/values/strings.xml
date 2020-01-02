@@ -1,29 +1,35 @@
 <resources>
     <string name="app_name">YumYum</string>
 
-    <!-- For content_home.xml-->
+    <!-- content_home.xml-->
     <string name="cooking_pot_description">It\'s a cooking pot.</string>
     <string name="recipe_book_description">It\'s a recipe book.</string>
 
-    <!-- For menu_main.xml -->
+    <!-- menu_main.xml -->
     <string name="recipe_fagment_name">Recipe</string>
     <string name="rating_fragment_name">Rating</string>
     <string name="title_activity_main">MainActivity</string>
 
-    <!-- For activity_recipe.xml -->
+    <!-- activity_recipe.xml -->
+    <string name="add_image_text">Add Image</string>
     <string name="recipe_button_text">Next</string>
     <string name="recipe_activity_title">Add New Recipe</string>
 
-    <!-- For toolbar_ingredients.xml -->
+    <!-- toolbar_ingredients.xml -->
     <string name="ingredients_activity_title">Ingredients</string>
 
-    <!-- For activity_instructions.xml -->
+    <!-- activity_instructions.xml -->
     <string name="instructions_add_text">Instructions</string>
 
-    <!-- For activity_ingredients.xml -->
+    <!-- activity_ingredients.xml -->
     <string name="ingredients_button_text">Done</string>
-    <string name="add_image_text">Add Image</string>
     <string name="character_text">•&#160;</string>
     <string name="ingredient_text">Some Ingredient</string>
+
+    <!-- activity_instructions.xml -->
+    <string name="instruction_step_text">Step 1.</string>
+    <string name="instruction_text">Do this: …</string>
+    <string name="instruction_hint_text">Your instruction</string>
+    <string name="instruction_step_hint_text">Add step</string>
 
 </resources>
