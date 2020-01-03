@@ -2,8 +2,6 @@ package com.example.yumyum.Activities
 
 import android.app.Activity
 import android.content.Context
-import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -14,7 +12,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.yumyum.Ingredient.Ingredient
 import com.example.yumyum.Instruction.Instruction
 import com.example.yumyum.Instruction.InstructionsAdapter
 import com.example.yumyum.R
@@ -30,7 +27,7 @@ class InstructionsActivity : AppCompatActivity() {
     private val instructionList = arrayListOf<Instruction>();
     private val instructionAdapter = InstructionsAdapter(instructionList);
 
-    private var done = false;
+    var done = false;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
@@ -155,8 +152,7 @@ class InstructionsActivity : AppCompatActivity() {
 
     // Hide keyboard function.
     private fun Context.hideKeyboard(view: View) {
-        val inputMethodManager =
-            getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager;
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0);
     }
 }

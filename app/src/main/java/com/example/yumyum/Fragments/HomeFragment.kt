@@ -11,6 +11,7 @@ import androidx.core.net.toUri
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.yumyum.Activities.InstructionsActivity
 
 import com.example.yumyum.R
 import com.example.yumyum.Recipe.Recipe
@@ -41,8 +42,10 @@ class HomeFragment : Fragment() {
 
         initViews();
 
-        // Check whether all the user input data has been received.
-        receiveData();
+        if(InstructionsActivity().done) {
+            // Check whether all the user input data has been received.
+            receiveData();
+        }
 
     }
 
@@ -61,7 +64,6 @@ class HomeFragment : Fragment() {
         val recipePreparationTime = this.arguments?.getString("RECIPE_PREPARATION_TIME");
         val recipeIngredients = this.arguments?.getStringArrayList("RECIPE_INGREDIENTS_LIST");
         val recipeInstructions = this.arguments?.getStringArrayList("RECIPE_INSTRUCTIONS_LIST");
-
 
         val recipe = Recipe(
             name = recipeName,

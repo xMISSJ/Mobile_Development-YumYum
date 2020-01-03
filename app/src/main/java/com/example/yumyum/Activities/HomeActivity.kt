@@ -50,8 +50,8 @@ class HomeActivity : AppCompatActivity() {
 
     private fun onProfileImageClick() {
         // From HomeActivity to ProfileActivity.
-        val intent = Intent(this@HomeActivity, ProfileActivity::class.java);
-        startActivity(intent);
+        val nextIntent = Intent(this@HomeActivity, ProfileActivity::class.java);
+        startActivity(nextIntent);
 
         // Animation to fade into the ProfileActivity.
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
@@ -59,8 +59,8 @@ class HomeActivity : AppCompatActivity() {
 
     private fun onAddClick() {
         // From HomeActivity to AddActivity.
-        val intent = Intent(this@HomeActivity, RecipeActivity::class.java);
-        startActivityForResult(intent, REQUEST_CODE);
+        val nextIntent = Intent(this@HomeActivity, RecipeActivity::class.java);
+        startActivityForResult(nextIntent, REQUEST_CODE);
 
         // Animation to fade into the AddActivity.
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);

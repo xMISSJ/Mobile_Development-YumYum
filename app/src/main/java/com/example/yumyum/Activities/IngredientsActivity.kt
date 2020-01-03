@@ -70,14 +70,14 @@ class IngredientsActivity : AppCompatActivity() {
 
         // Check whether RecyclerView has items.
         if (ingredientAdapter.itemCount != 0) {
-            val intent = Intent(this@IngredientsActivity, InstructionsActivity::class.java);
+            val nextIntent = Intent(this@IngredientsActivity, InstructionsActivity::class.java);
+
+            intent.flags = Intent.FLAG_ACTIVITY_FORWARD_RESULT;
 
             // Add extras from this activity.
             intent.putExtra("RECIPE_INGREDIENTS_LIST", ingredientList);
-            name = intent.getStringExtra("RECIPE_NAME");
 
-            intent.flags = Intent.FLAG_ACTIVITY_FORWARD_RESULT;
-            startActivity(intent);
+            startActivity(nextIntent);
             finish();
         } else {
             Toast.makeText(this, "Please fill in at least one ingredient.", Toast.LENGTH_LONG).show();
@@ -86,7 +86,7 @@ class IngredientsActivity : AppCompatActivity() {
         // Fading animation when going from IngredientsActivity to InstructionsActivity.
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 
-        Toast.makeText(this, name, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, name.toString(), Toast.LENGTH_LONG).show();
     }
 
     private fun initViews() {

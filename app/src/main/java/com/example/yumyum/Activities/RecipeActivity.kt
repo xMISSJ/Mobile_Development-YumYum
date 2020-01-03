@@ -60,13 +60,15 @@ class RecipeActivity : AppCompatActivity() {
         //TODO: Perhaps activate this function on keyboard enter press.
 
         if (etRecipeName.text.isNotBlank() && etServings.text.isNotBlank() && etPreparationTime.text.isNotBlank()) {
-            var recipeName = etRecipeName.text.toString();
-            var recipeImage = profileImageUri;
-            var servings = etServings.text.toString();
-            var preparationTime = etPreparationTime.text.toString();
+            val recipeName = etRecipeName.text.toString();
+            val recipeImage = profileImageUri;
+            val servings = etServings.text.toString();
+            val preparationTime = etPreparationTime.text.toString();
 
             // Go from RecipeActivity to IngredientsActivity.
-            val intent = Intent(this@RecipeActivity, IngredientsActivity::class.java);
+            val nextIntent = Intent(this@RecipeActivity, IngredientsActivity::class.java);
+
+            intent.flags = Intent.FLAG_ACTIVITY_FORWARD_RESULT;
 
             // Put the variables as extra to send them to the IngredientsActivity.
             intent.putExtra("RECIPE_NAME", recipeName);
@@ -74,8 +76,7 @@ class RecipeActivity : AppCompatActivity() {
             intent.putExtra("RECIPE_SERVINGS", servings);
             intent.putExtra("RECIPE_PREPARATION_TIME", preparationTime);
 
-            intent.flags = Intent.FLAG_ACTIVITY_FORWARD_RESULT;
-            startActivity(intent);
+            startActivity(nextIntent);
             finish();
         } else {
             Toast.makeText(this, "One of the fields or multiple are empty.", Toast.LENGTH_LONG).show();
