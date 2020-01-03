@@ -40,7 +40,10 @@
     <!-- fragment_rate.xml -->
     <string name="rate_button_text">Send Feedback</string>
     <string name="fragment_rate_text">We hope you enjoy our application!</string>
-    <string name="rating_comment_text">No rating...</string>
-    <string name="feedback_hint_text">Tell us what you think...</string>
+    <string name="rating_comment_text">No rating…</string>
+    <string name="feedback_hint_text">Tell us what you think…</string>
+
+    <!-- fragment_rated.xml -->
+    <string name="thank_you_text">Thank you text.</string>
 
 </resources>

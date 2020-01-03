@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RatingBar
 import android.widget.TextView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import com.example.yumyum.R
 import kotlinx.android.synthetic.main.content_home.view.*
 import kotlinx.android.synthetic.main.fragment_rate.*
@@ -49,8 +49,9 @@ class RateFragment : Fragment() {
     }
 
     private fun onSubmitClick() {
-        //TODO: Switch to ratedFragment. Make this fragment.
-        Toast.makeText(context, "Go to Fragment.", Toast.LENGTH_LONG).show();
+        // Go to RatedFragment. Pass the rating as argument.
+        val action = RateFragmentDirections.actionRateFragmentToRatedFragment(rbRate.rating);
+        findNavController().navigate(action);
     }
 
     private fun onRatingClick(ratingBar: RatingBar) {
@@ -85,5 +86,4 @@ class RateFragment : Fragment() {
             "5.0" -> ratingComment.text = commentsList[10];
         }
     }
-
 }

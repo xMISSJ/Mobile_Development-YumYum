@@ -12,5 +12,18 @@
     <fragment
         android:id="@+id/rateFragment"
         android:name="com.example.yumyum.Fragments.RateFragment"
-        tools:layout="@layout/fragment_rate" />
+        tools:layout="@layout/fragment_rate" >
+        <action
+            android:id="@+id/action_rateFragment_to_ratedFragment"
+            app:destination="@id/ratedFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ratedFragment"
+        android:name="com.example.yumyum.Fragments.RatedFragment"
+        android:label="fragment_rated"
+        tools:layout="@layout/fragment_rated" >
+        <argument
+            android:name="rating"
+            app:argType="float" />
+    </fragment>
 </navigation>

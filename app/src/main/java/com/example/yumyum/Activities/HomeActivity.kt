@@ -89,7 +89,6 @@ class HomeActivity : AppCompatActivity() {
         // toolbar.setupWithNavController(navController, appBarConfiguration);
     }
 
-
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
