@@ -1,12 +1,10 @@
 package com.example.yumyum.Fragments
 
-import android.app.Activity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +14,7 @@ import com.example.yumyum.Activities.InstructionsActivity
 import com.example.yumyum.R
 import com.example.yumyum.Recipe.Recipe
 import com.example.yumyum.Recipe.RecipesAdapter
+import kotlinx.android.synthetic.main.content_home.view.*
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
@@ -25,20 +24,18 @@ class HomeFragment : Fragment() {
 
     private lateinit var myView: View;
 
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         // Inflate the layout for this fragment
         myView = inflater.inflate(R.layout.fragment_home, container, false);
+
         return myView;
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState);
+
+        myView.rootView.ivRecipeBook.setImageResource(R.drawable.recipe_book_small);
 
         initViews();
 
