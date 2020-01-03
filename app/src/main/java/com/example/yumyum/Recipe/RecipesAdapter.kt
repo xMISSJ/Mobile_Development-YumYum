@@ -1,4 +1,4 @@
-package com.example.yumyum.Instruction
+package com.example.yumyum.Recipe
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.yumyum.R
-import kotlinx.android.synthetic.main.item_instruction.view.*
+import kotlinx.android.synthetic.main.item_recipe.view.*
 
 /*
- * An List of Instruction objects is added to the class constructor
- * so the RecyclerView knows which Instruction objects it needs to display.
+ * An List of Recipe objects is added to the class constructor
+ * so the RecyclerView knows which Recipe objects it needs to display.
  */
-class InstructionsAdapter (private val instructions: List<Instruction>) : RecyclerView.Adapter<InstructionsAdapter.ViewHolder>() {
+class RecipesAdapter (private val recipes: List<Recipe>) : RecyclerView.Adapter<RecipesAdapter.ViewHolder>() {
     /*
      *  For the context variable the lateinit declaration has been used to let Kotlin
      *  know that this variable will be initialized later (in the onCreateViewHolder method).
@@ -24,18 +24,18 @@ class InstructionsAdapter (private val instructions: List<Instruction>) : Recycl
      * We will be needing Context later on so a variable context is set.
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        context = parent.context
-        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_instruction, parent, false));
+        context = parent.context;
+        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_recipe, parent, false));
     }
 
     // Size of Instructions.
     override fun getItemCount(): Int {
-        return instructions.size;
+        return recipes.size;
     }
 
     // Bind method to bind the data to the ViewHolder.
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(instructions[position]);
+        holder.bind(recipes[position])
     }
 
     /*
@@ -43,9 +43,12 @@ class InstructionsAdapter (private val instructions: List<Instruction>) : Recycl
      * references from the layout file for the ImageView and TextView.
      */
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(instruction: Instruction) {
-            itemView.tvStep.text = instruction.step;
-            itemView.tvInstruction.text = instruction.instruction;
+        fun bind(recipe: Recipe) {
+            itemView.tvRecipeName.text = recipe.name;
+            itemView.ivDish.setImageURI(recipe.image);
+            itemView.tvServingTime.text = recipe.preparationTime.toString();
+            itemView.tvServingAmount.text = recipe.servings.toString();
+            itemView.ivFavorite.setImageResource(R.drawable.ic_favorite);
         }
     }
 }

@@ -17,27 +17,25 @@ class IngredientsAdapter (private val ingredients: List<Ingredient>) : RecyclerV
      *  For the context variable the lateinit declaration has been used to let Kotlin
      *  know that this variable will be initialized later (in the onCreateViewHolder method).
      */
-    lateinit var context: Context
+    lateinit var context: Context;
 
     /*
      * In onCreateViewHolder a ViewHolder object is created which inflates the layout file we created (item_ingredient.xml).
      * We will be needing Context later on so a variable context is set.
      */
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        context = parent.context
-        return ViewHolder(
-            LayoutInflater.from(context).inflate(R.layout.item_ingredient, parent, false)
-        )
+        context = parent.context;
+        return ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_ingredient, parent, false));
     }
 
     // Size of Ingredients.
     override fun getItemCount(): Int {
-        return ingredients.size
+        return ingredients.size;
     }
 
     // Bind method to bind the data to the ViewHolder.
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(ingredients[position])
+        holder.bind(ingredients[position]);
     }
 
     /*

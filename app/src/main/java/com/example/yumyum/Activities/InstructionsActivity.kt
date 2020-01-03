@@ -30,11 +30,7 @@ class InstructionsActivity : AppCompatActivity() {
     private val instructionList = arrayListOf<Instruction>();
     private val instructionAdapter = InstructionsAdapter(instructionList);
 
-    private var recipeName: String? = null;
-    private var recipeImage: Uri? = null;
-    private var recipeServings: String? = null;
-
-    private var recipeIngredientsList = arrayListOf<String>();
+    private var done = false;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
@@ -50,7 +46,6 @@ class InstructionsActivity : AppCompatActivity() {
 
         setToolbar();
         initViews();
-        retrieveExtras();
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -115,8 +110,7 @@ class InstructionsActivity : AppCompatActivity() {
 
             val stepText = etAddStep.text.toString();
 
-            val instruction =
-                Instruction("Step ${stepText}.", etAddInstruction.text.toString());
+            val instruction = Instruction("Step ${stepText}.", etAddInstruction.text.toString());
 
             // Add this ingredient to the list. This list will now be shown in adapter and thus in the RecyclerView.
             instructionList.add(instruction);
@@ -135,20 +129,17 @@ class InstructionsActivity : AppCompatActivity() {
 
         // Check whether RecyclerView has items.
         if (instructionAdapter.itemCount != 0) {
-            val intent = Intent(this@InstructionsActivity, HomeActivity::class.java);
 
-            // Put the variables as extra to send them to the IngredientsActivity.
-            // They all have a "2" added to not confuse names with RecipeActivity.
-            intent.putExtra("RECIPE_NAME3", recipeName);
-            intent.putExtra("RECIPE_IMAGE3", recipeImage);
-            intent.putExtra("RECIPE_SERVINGS3", recipeServings);
+            intent.putExtra("RECIPE_INSTRUCTIONS_LIST", instructionList);
+            intent.putExtra("USER_FINISHED", done);
 
-            // Add extras from this activity.
-            intent.putExtra("RECIPE_INGREDIENTS_LIST3", recipeIngredientsList);
-            startActivity(intent);
+            setResult(Activity.RESULT_OK, intent);
+            finish();
+
+            // Player is done. This information is used in HomeFragment to show the information in the Fragment.
+            done = true;
         } else {
-            Toast.makeText(this, "Please fill in at least one ingredient.", Toast.LENGTH_LONG)
-                .show();
+            Toast.makeText(this, "Please fill in at least one ingredient.", Toast.LENGTH_LONG).show();
         }
 
         //Fading animation when going from InstructionsActivity to HomeActivity.
@@ -160,15 +151,6 @@ class InstructionsActivity : AppCompatActivity() {
         rvInstructions.adapter = instructionAdapter;
 
         createItemTouchHelper().attachToRecyclerView(rvIngredients);
-    }
-
-    private fun retrieveExtras() {
-        // Retrieve the extra from IngredientsActivity. Use this retrieved extra to send to HomeActivity.
-        recipeName = intent.getStringExtra("RECIPE_NAME2");
-        recipeImage = Uri.parse(intent.getStringExtra("RECIPE_IMAGE2"));
-        recipeServings = intent.getStringExtra("RECIPE_SERVINGS2");
-
-        recipeIngredientsList = intent.getStringArrayListExtra("RECIPE_INGREDIENTS_LIST2");
     }
 
     // Hide keyboard function.

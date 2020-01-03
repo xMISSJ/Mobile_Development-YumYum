@@ -44,7 +44,7 @@
         android:id="@+id/etRecipeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Recipe Name"
         android:inputType="textPersonName"
@@ -84,6 +84,33 @@
         android:layout_marginTop="24dp"
         android:ems="10"
         android:hint="How many people to serve?"
+        android:inputType="number"
+        android:textAlignment="center"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnAddImage" />
+
+    <ImageView
+        android:id="@+id/ivServingsBG2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
+        app:layout_constraintBottom_toBottomOf="@+id/etPreparationTime"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/etPreparationTime"
+        app:srcCompat="@color/white" />
+
+    <EditText
+        android:id="@+id/etPreparationTime"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:ems="10"
+        android:hint="Preparation Time"
         android:inputType="number"
         android:textAlignment="center"
         android:textSize="14sp"

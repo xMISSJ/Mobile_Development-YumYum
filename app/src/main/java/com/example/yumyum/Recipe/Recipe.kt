@@ -12,7 +12,6 @@ data class Recipe (
     var image: Uri?,
     var servings: Int?,
     var preparationTime: Int?,
-    var favorite: Boolean?,
 
     // Details screen information.
     var ingredients: List<String>?,

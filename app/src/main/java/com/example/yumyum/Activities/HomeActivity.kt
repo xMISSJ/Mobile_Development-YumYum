@@ -1,18 +1,25 @@
 package com.example.yumyum.Activities
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
-import android.widget.ImageView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.Fragment
+
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.android.synthetic.main.default_toolbar.*
 import com.example.yumyum.R
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.content_home.*
+import kotlinx.android.synthetic.main.default_toolbar.*
+
+
+const val REQUEST_CODE = 100;
 
 class HomeActivity : AppCompatActivity() {
 
@@ -20,12 +27,14 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var toolbar: Toolbar;
     private lateinit var view: View;
 
-    private lateinit var favoriteImage: ImageView;
-    private var favorite = false;
+    private var fragment: Fragment? = null;
+    private var bundle: Bundle? = null;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        fragment = supportFragmentManager.findFragmentById(R.id.homeFragment);
 
         ivProfileImage.setOnClickListener {
             onProfileImageClick();
@@ -34,10 +43,6 @@ class HomeActivity : AppCompatActivity() {
         btnAddRecipe.setOnClickListener {
             onAddClick();
         }
-/*
-        ivFavorite.setOnClickListener {
-            onFavoriteClick();
-        }*/
 
         setToolbar();
         initNavigation();
@@ -55,7 +60,7 @@ class HomeActivity : AppCompatActivity() {
     private fun onAddClick() {
         // From HomeActivity to AddActivity.
         val intent = Intent(this@HomeActivity, RecipeActivity::class.java);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_CODE);
 
         // Animation to fade into the AddActivity.
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
@@ -84,12 +89,37 @@ class HomeActivity : AppCompatActivity() {
         // toolbar.setupWithNavController(navController, appBarConfiguration);
     }
 
-/*    private fun onFavoriteClick(){
-        // Recipe is favorited.
-        favorite = true;
 
-        // Change the image as feedback.
-        ivFavorite.setImageResource(R.drawable.ic_favorited);
-    }*/
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                REQUEST_CODE -> {
+                    val recipeName = data?.extras?.getString("RECIPE_NAME");
+                    val recipeImage = data?.extras?.getString("RECIPE_IMAGE");
+                    val recipeServings = data?.extras?.getString("RECIPE_SERVINGS");
+                    val recipePreparationTime = data?.extras?.getString("RECIPE_PREPARATION_TIME");
+                    val recipeIngredients = data?.extras?.getStringArrayList("RECIPE_INGREDIENTS_LIST");
+                    val recipeInstructions = data?.extras?.getStringArrayList("RECIPE_INSTRUCTIONS_LIST");
+
+                    bundle = intent.extras;
+                    bundle?.putString("RECIPE_NAME", recipeName);
+                    bundle?.putString("RECIPE_IMAGE", recipeImage);
+                    bundle?.putString("RECIPE_SERVINGS", recipeServings);
+                    bundle?.putString("RECIPE_PREPARATION_TIME", recipePreparationTime);
+                    bundle?.putStringArrayList("RECIPE_INGREDIENTS_LIST", recipeIngredients);
+                    bundle?.putStringArrayList("RECIPE_INSTRUCTIONS_LIST", recipeInstructions);
+
+                    // Send the bundle to the HomeFragment.kt.
+                    fragment?.arguments = bundle;
+                }
+            }
+        }
+    }
+
+    fun getBundle(): Bundle? {
+        return bundle;
+    }
+
 }
 

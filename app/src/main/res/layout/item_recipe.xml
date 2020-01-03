@@ -42,7 +42,7 @@
                 android:paddingTop="25dp">
 
                 <TextView
-                    android:id="@+id/etRecipeName"
+                    android:id="@+id/tvRecipeName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/georgia"
@@ -64,7 +64,7 @@
                         app:srcCompat="@drawable/ic_clock" />
 
                     <TextView
-                        android:id="@+id/etServingTime"
+                        android:id="@+id/tvServingTime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto"
@@ -82,7 +82,7 @@
                         app:srcCompat="@drawable/ic_person" />
 
                     <TextView
-                        android:id="@+id/etServingAmount"
+                        android:id="@+id/tvServingAmount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto"
