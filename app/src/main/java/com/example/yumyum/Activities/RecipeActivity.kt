@@ -68,13 +68,13 @@ class RecipeActivity : AppCompatActivity() {
             // Go from RecipeActivity to IngredientsActivity.
             val nextIntent = Intent(this@RecipeActivity, IngredientsActivity::class.java);
 
-            intent.flags = Intent.FLAG_ACTIVITY_FORWARD_RESULT;
+            nextIntent.flags = Intent.FLAG_ACTIVITY_FORWARD_RESULT;
 
             // Put the variables as extra to send them to the IngredientsActivity.
-            intent.putExtra("RECIPE_NAME", recipeName);
-            intent.putExtra("RECIPE_IMAGE", recipeImage.toString()); // Convert Uri to String.
-            intent.putExtra("RECIPE_SERVINGS", servings);
-            intent.putExtra("RECIPE_PREPARATION_TIME", preparationTime);
+            nextIntent.putExtra("RECIPE_NAME", recipeName);
+            nextIntent.putExtra("RECIPE_IMAGE", recipeImage.toString()); // Convert Uri to String.
+            nextIntent.putExtra("RECIPE_SERVINGS", servings);
+            nextIntent.putExtra("RECIPE_PREPARATION_TIME", preparationTime);
 
             startActivity(nextIntent);
             finish();

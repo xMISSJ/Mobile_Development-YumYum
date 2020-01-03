@@ -18,7 +18,6 @@ import com.example.yumyum.Ingredient.IngredientsAdapter
 import com.example.yumyum.R
 import kotlinx.android.synthetic.main.activity_ingredients.*
 
-
 class IngredientsActivity : AppCompatActivity() {
 
     private lateinit var toolbar: Toolbar;
@@ -26,8 +25,6 @@ class IngredientsActivity : AppCompatActivity() {
 
     private val ingredientList = arrayListOf<Ingredient>();
     private val ingredientAdapter = IngredientsAdapter(ingredientList);
-
-    private var name: String? = null;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
@@ -72,10 +69,13 @@ class IngredientsActivity : AppCompatActivity() {
         if (ingredientAdapter.itemCount != 0) {
             val nextIntent = Intent(this@IngredientsActivity, InstructionsActivity::class.java);
 
-            intent.flags = Intent.FLAG_ACTIVITY_FORWARD_RESULT;
+            nextIntent.flags = Intent.FLAG_ACTIVITY_FORWARD_RESULT;
+
+            // Send the data from the previous activity along as data.
+            nextIntent.putExtras(intent);
 
             // Add extras from this activity.
-            intent.putExtra("RECIPE_INGREDIENTS_LIST", ingredientList);
+            nextIntent.putExtra("RECIPE_INGREDIENTS_LIST", ingredientList);
 
             startActivity(nextIntent);
             finish();
@@ -85,8 +85,6 @@ class IngredientsActivity : AppCompatActivity() {
 
         // Fading animation when going from IngredientsActivity to InstructionsActivity.
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-
-        Toast.makeText(this, name.toString(), Toast.LENGTH_LONG).show();
     }
 
     private fun initViews() {

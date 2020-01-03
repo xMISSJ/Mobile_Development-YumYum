@@ -2,6 +2,7 @@ package com.example.yumyum.Activities
 
 import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -127,10 +128,15 @@ class InstructionsActivity : AppCompatActivity() {
         // Check whether RecyclerView has items.
         if (instructionAdapter.itemCount != 0) {
 
-            intent.putExtra("RECIPE_INSTRUCTIONS_LIST", instructionList);
-            intent.putExtra("USER_FINISHED", done);
+            val resultIntent = Intent();
 
-            setResult(Activity.RESULT_OK, intent);
+            // Add data from the previous activity along as data.
+            resultIntent.putExtras(intent);
+
+            resultIntent.putExtra("RECIPE_INSTRUCTIONS_LIST", instructionList);
+            resultIntent.putExtra("USER_FINISHED", done.toString());
+
+            setResult(Activity.RESULT_OK, resultIntent);
             finish();
 
             // Player is done. This information is used in HomeFragment to show the information in the Fragment.

@@ -1,15 +1,21 @@
 package com.example.yumyum.Fragments
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.yumyum.Activities.InstructionsActivity
+import com.example.yumyum.Activities.HomeActivity
+import com.example.yumyum.Activities.REQUEST_CODE
+import com.example.yumyum.Activities.RecipeActivity
 
 import com.example.yumyum.R
 import com.example.yumyum.Recipe.Recipe
@@ -23,6 +29,15 @@ class HomeFragment : Fragment() {
     private val recipesAdapter = RecipesAdapter(recipesList);
 
     private lateinit var myView: View;
+
+    private var recipeName: String? = null;
+    private var recipeImage: String? = null;
+    private var recipeServings: String? = null;
+    private var recipePreparationTime: String? = null;
+
+    private lateinit var addButton: Button;
+
+    private var done: Boolean? = false;
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -39,9 +54,10 @@ class HomeFragment : Fragment() {
 
         initViews();
 
-        if(InstructionsActivity().done) {
+        if(done == true) {
+            Toast.makeText(context, "Done", Toast.LENGTH_LONG).show();
             // Check whether all the user input data has been received.
-            receiveData();
+            setData();
         }
 
     }
@@ -53,22 +69,14 @@ class HomeFragment : Fragment() {
         createItemTouchHelper().attachToRecyclerView(rvRecipes);
     }
 
-    private fun receiveData() {
-
-        val recipeName = this.arguments?.getString("RECIPE_NAME");
-        var recipeImage = this.arguments?.getString("RECIPE_IMAGE");
-        val recipeServings = this.arguments?.getString("RECIPE_SERVINGS");
-        val recipePreparationTime = this.arguments?.getString("RECIPE_PREPARATION_TIME");
-        val recipeIngredients = this.arguments?.getStringArrayList("RECIPE_INGREDIENTS_LIST");
-        val recipeInstructions = this.arguments?.getStringArrayList("RECIPE_INSTRUCTIONS_LIST");
-
+    private fun setData() {
         val recipe = Recipe(
             name = recipeName,
             image = recipeImage?.toUri(),
             servings = recipeServings?.toInt(),
             preparationTime = recipePreparationTime?.toInt(),
-            ingredients = recipeIngredients,
-            instructions = recipeInstructions
+            ingredients = null,
+            instructions = null
         )
 
         recipesList.add(recipe);
@@ -106,6 +114,11 @@ class HomeFragment : Fragment() {
             }
         }
         return ItemTouchHelper(callback)
+    }
+
+    private fun convertArray(): ArrayList<String> {
+        val elements = arrayListOf<String>();
+        return elements
     }
 
 }

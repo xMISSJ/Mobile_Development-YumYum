@@ -14,14 +14,22 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.example.yumyum.R
+import com.example.yumyum.Recipe.Recipe
+import com.example.yumyum.Recipe.RecipesAdapter
+import com.example.yumyum.Room.RecipeRepository
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.content_home.*
 import kotlinx.android.synthetic.main.default_toolbar.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 
 const val REQUEST_CODE = 100;
 
 class HomeActivity : AppCompatActivity() {
+
 
     private lateinit var bottomNavigation: BottomNavigationView;
     private lateinit var toolbar: Toolbar;
@@ -30,10 +38,13 @@ class HomeActivity : AppCompatActivity() {
     private var fragment: Fragment? = null;
     private var bundle: Bundle? = null;
 
+    private lateinit var recipeRepository: RecipeRepository;
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
+        recipeRepository = RecipeRepository(this);
         fragment = supportFragmentManager.findFragmentById(R.id.homeFragment);
 
         ivProfileImage.setOnClickListener {
@@ -94,6 +105,7 @@ class HomeActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 REQUEST_CODE -> {
+
                     val recipeName = data?.extras?.getString("RECIPE_NAME");
                     val recipeImage = data?.extras?.getString("RECIPE_IMAGE");
                     val recipeServings = data?.extras?.getString("RECIPE_SERVINGS");
@@ -101,13 +113,7 @@ class HomeActivity : AppCompatActivity() {
                     val recipeIngredients = data?.extras?.getStringArrayList("RECIPE_INGREDIENTS_LIST");
                     val recipeInstructions = data?.extras?.getStringArrayList("RECIPE_INSTRUCTIONS_LIST");
 
-                    bundle = intent.extras;
-                    bundle?.putString("RECIPE_NAME", recipeName);
-                    bundle?.putString("RECIPE_IMAGE", recipeImage);
-                    bundle?.putString("RECIPE_SERVINGS", recipeServings);
-                    bundle?.putString("RECIPE_PREPARATION_TIME", recipePreparationTime);
-                    bundle?.putStringArrayList("RECIPE_INGREDIENTS_LIST", recipeIngredients);
-                    bundle?.putStringArrayList("RECIPE_INSTRUCTIONS_LIST", recipeInstructions);
+                    val userDone = data?.extras?.getString("USER_FINISHED");
 
                     // Send the bundle to the HomeFragment.kt.
                     fragment?.arguments = bundle;
@@ -117,7 +123,18 @@ class HomeActivity : AppCompatActivity() {
     }
 
     fun getBundle(): Bundle? {
+        val test = bundle?.getString("RECIPE_NAME");
+        Toast.makeText(this, test, Toast.LENGTH_LONG).show();
         return bundle;
+    }
+
+    //TODO: Find out how to save data into the local database and then use this in HomeFragment to set in the RecyclerView.
+    private fun getRecipesFromDatabase() {
+        CoroutineScope(Dispatchers.Main).launch {
+            val recipes = withContext(Dispatchers.IO) {
+                recipeRepository.getAllRecipes()
+            }
+        }
     }
 
 }
