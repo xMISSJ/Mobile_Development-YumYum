@@ -12,6 +12,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
+import com.example.yumyum.Fragments.HomeFragment
+import com.example.yumyum.Ingredient.Ingredient
+import com.example.yumyum.Instruction.Instruction
 import com.example.yumyum.R
 import com.example.yumyum.Recipe.Recipe
 import com.example.yumyum.Room.RecipeRepository
@@ -23,18 +26,15 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-
 const val REQUEST_CODE = 100;
 
 class HomeActivity : AppCompatActivity() {
-
 
     private lateinit var bottomNavigation: BottomNavigationView;
     private lateinit var toolbar: Toolbar;
     private lateinit var view: View;
 
     private var fragment: Fragment? = null;
-    private var bundle: Bundle? = null;
 
     private lateinit var recipeRepository: RecipeRepository;
 
@@ -118,8 +118,8 @@ class HomeActivity : AppCompatActivity() {
         val recipeImage = data?.extras?.getString("RECIPE_IMAGE");
         val recipeServings = data?.extras?.getString("RECIPE_SERVINGS");
         val recipePreparationTime = data?.extras?.getString("RECIPE_PREPARATION_TIME");
-        val recipeIngredients = data?.extras?.getStringArrayList("RECIPE_INGREDIENTS_LIST");
-        val recipeInstructions = data?.extras?.getStringArrayList("RECIPE_INSTRUCTIONS_LIST");
+        val recipeIngredients = data?.extras?.getParcelableArrayList<Ingredient>("RECIPE_INGREDIENTS_LIST");
+        val recipeInstructions = data?.extras?.getParcelableArrayList<Instruction>("RECIPE_INSTRUCTIONS_LIST");
 
         // Then put this in the Recipe.
         val recipe = Recipe(
@@ -138,6 +138,6 @@ class HomeActivity : AppCompatActivity() {
             }
         }
     }
-
 }
+
 

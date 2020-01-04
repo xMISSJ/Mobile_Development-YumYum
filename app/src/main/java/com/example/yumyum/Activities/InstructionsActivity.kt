@@ -3,12 +3,12 @@ package com.example.yumyum.Activities
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -20,6 +20,7 @@ import kotlinx.android.synthetic.main.activity_ingredients.*
 import kotlinx.android.synthetic.main.activity_instructions.*
 import kotlinx.android.synthetic.main.activity_instructions.btnDone
 
+
 class InstructionsActivity : AppCompatActivity() {
 
     private lateinit var toolbar: Toolbar;
@@ -27,8 +28,6 @@ class InstructionsActivity : AppCompatActivity() {
 
     private val instructionList = arrayListOf<Instruction>();
     private val instructionAdapter = InstructionsAdapter(instructionList);
-
-    var done = false;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
@@ -134,13 +133,10 @@ class InstructionsActivity : AppCompatActivity() {
             resultIntent.putExtras(intent);
 
             resultIntent.putExtra("RECIPE_INSTRUCTIONS_LIST", instructionList);
-            resultIntent.putExtra("USER_FINISHED", done.toString());
 
             setResult(Activity.RESULT_OK, resultIntent);
             finish();
 
-            // Player is done. This information is used in HomeFragment to show the information in the Fragment.
-            done = true;
         } else {
             Toast.makeText(this, "Please fill in at least one ingredient.", Toast.LENGTH_LONG).show();
         }

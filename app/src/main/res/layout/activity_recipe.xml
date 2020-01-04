@@ -110,7 +110,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
         android:ems="10"
-        android:hint="Preparation Time"
+        android:hint="Preparation Time (Minutes):"
         android:inputType="number"
         android:textAlignment="center"
         android:textSize="14sp"

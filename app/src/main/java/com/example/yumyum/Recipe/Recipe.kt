@@ -5,6 +5,8 @@ import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.yumyum.Ingredient.Ingredient
+import com.example.yumyum.Instruction.Instruction
 import kotlinx.android.parcel.Parcelize
 
 @Parcelize
@@ -18,8 +20,8 @@ data class Recipe (
     var preparationTime: Int?,
 
     // Details screen information.
-    var ingredients: ArrayList<String>?,
-    var instructions: ArrayList<String>?,
+    var ingredients: ArrayList<Ingredient>?,
+    var instructions: ArrayList<Instruction>?,
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

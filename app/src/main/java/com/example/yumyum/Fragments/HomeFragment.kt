@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.yumyum.Activities.HomeActivity
 
 import com.example.yumyum.R
 import com.example.yumyum.Recipe.Recipe
@@ -28,10 +29,8 @@ class HomeFragment : Fragment() {
 
     private lateinit var myView: View;
     private lateinit var recipeRepository: RecipeRepository;
-    private var done: Boolean? = false;
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
         // Inflate the layout for this fragment
         myView = inflater.inflate(R.layout.fragment_home, container, false);
         recipeRepository = RecipeRepository(activity!!.applicationContext);
@@ -45,9 +44,7 @@ class HomeFragment : Fragment() {
 
         initViews();
 
-        // Check whether all the user input data has been received.
         getGamesFromDatabase();
-
     }
 
     private fun initViews() {
@@ -58,10 +55,12 @@ class HomeFragment : Fragment() {
     }
 
     private fun getGamesFromDatabase() {
+        Toast.makeText(context, "HOI", Toast.LENGTH_LONG).show();
         CoroutineScope(Dispatchers.Main).launch {
             val recipes = withContext(Dispatchers.IO) {
                 recipeRepository.getAllRecipes();
             }
+
             this@HomeFragment.recipesList.clear();
             this@HomeFragment.recipesList.addAll(recipes);
             this@HomeFragment.recipesAdapter.notifyDataSetChanged();
