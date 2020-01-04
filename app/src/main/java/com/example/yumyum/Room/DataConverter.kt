@@ -2,9 +2,6 @@ package com.example.yumyum.Room
 
 import android.net.Uri
 import androidx.room.TypeConverter
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-
 
 class DataConverter {
     @TypeConverter
@@ -18,15 +15,23 @@ class DataConverter {
     }
 
     @TypeConverter
-    fun restoreList(listOfString: String?): ArrayList<String?>? {
-        return Gson().fromJson<ArrayList<String?>>(
-            listOfString,
-            object : TypeToken<List<String?>?>() {}.type
-        )
+    fun stringAsStringList(strings: String?): ArrayList<String> {
+        val list = ArrayList<String>()
+        strings
+            ?.split(",")
+            ?.forEach {
+                list.add(it)
+            }
+
+        return list
     }
 
     @TypeConverter
-    fun saveList(listOfString: ArrayList<String?>?): String? {
-        return Gson().toJson(listOfString)
+    fun stringListAsString(strings: ArrayList<String>?): String {
+        var result = ""
+        strings?.forEach { element ->
+            result += "$element,"
+        }
+        return result.removeSuffix(",")
     }
 }

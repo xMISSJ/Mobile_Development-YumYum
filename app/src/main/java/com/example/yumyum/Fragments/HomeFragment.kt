@@ -34,7 +34,7 @@ class HomeFragment : Fragment() {
 
         // Inflate the layout for this fragment
         myView = inflater.inflate(R.layout.fragment_home, container, false);
-
+        recipeRepository = RecipeRepository(activity!!.applicationContext);
         return myView;
     }
 
@@ -45,11 +45,8 @@ class HomeFragment : Fragment() {
 
         initViews();
 
-        if(done == true) {
-            Toast.makeText(context, "Done", Toast.LENGTH_LONG).show();
-            // Check whether all the user input data has been received.
-            getGamesFromDatabase();
-        }
+        // Check whether all the user input data has been received.
+        getGamesFromDatabase();
 
     }
 
