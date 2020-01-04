@@ -13,7 +13,6 @@ class RecipeRepository (context: Context) {
     }
 
     suspend fun getAllRecipes() : List<Recipe> = recipeDao.getAllRecipes();
-    suspend fun deleteAllRecipes(): List<Recipe> = recipeDao.deleteAllRecipes();
     suspend fun insertRecipe(recipe: Recipe) = recipeDao.insertRecipe(recipe);
     suspend fun deleteRecipe(recipe: Recipe) = recipeDao.deleteRecipe(recipe);
     suspend fun updateRecipe(recipe: Recipe) = recipeDao.updateRecipe(recipe);

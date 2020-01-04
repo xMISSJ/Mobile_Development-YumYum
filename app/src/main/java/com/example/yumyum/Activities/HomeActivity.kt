@@ -3,11 +3,10 @@ package com.example.yumyum.Activities
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 
 import androidx.navigation.findNavController
@@ -15,7 +14,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import com.example.yumyum.R
 import com.example.yumyum.Recipe.Recipe
-import com.example.yumyum.Recipe.RecipesAdapter
 import com.example.yumyum.Room.RecipeRepository
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.content_home.*
@@ -105,34 +103,38 @@ class HomeActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 REQUEST_CODE -> {
-
-                    val recipeName = data?.extras?.getString("RECIPE_NAME");
-                    val recipeImage = data?.extras?.getString("RECIPE_IMAGE");
-                    val recipeServings = data?.extras?.getString("RECIPE_SERVINGS");
-                    val recipePreparationTime = data?.extras?.getString("RECIPE_PREPARATION_TIME");
-                    val recipeIngredients = data?.extras?.getStringArrayList("RECIPE_INGREDIENTS_LIST");
-                    val recipeInstructions = data?.extras?.getStringArrayList("RECIPE_INSTRUCTIONS_LIST");
-
-                    val userDone = data?.extras?.getString("USER_FINISHED");
-
-                    // Send the bundle to the HomeFragment.kt.
-                    fragment?.arguments = bundle;
+                    // On success insert the data in the database.
+                    insertInDatabase(data);
                 }
             }
         }
     }
 
-    fun getBundle(): Bundle? {
-        val test = bundle?.getString("RECIPE_NAME");
-        Toast.makeText(this, test, Toast.LENGTH_LONG).show();
-        return bundle;
-    }
-
     //TODO: Find out how to save data into the local database and then use this in HomeFragment to set in the RecyclerView.
-    private fun getRecipesFromDatabase() {
+    private fun insertInDatabase(data: Intent?) {
+
+        // First get all data.
+        val recipeName = data?.extras?.getString("RECIPE_NAME");
+        val recipeImage = data?.extras?.getString("RECIPE_IMAGE");
+        val recipeServings = data?.extras?.getString("RECIPE_SERVINGS");
+        val recipePreparationTime = data?.extras?.getString("RECIPE_PREPARATION_TIME");
+        val recipeIngredients = data?.extras?.getStringArrayList("RECIPE_INGREDIENTS_LIST");
+        val recipeInstructions = data?.extras?.getStringArrayList("RECIPE_INSTRUCTIONS_LIST");
+
+        // Then put this in the Recipe.
+        val recipe = Recipe(
+            name = recipeName,
+            image = recipeImage?.toUri(),
+            servings = recipeServings?.toInt(),
+            preparationTime = recipePreparationTime?.toInt(),
+            ingredients = recipeIngredients,
+            instructions = recipeInstructions
+        )
+
+        // Insert into database.
         CoroutineScope(Dispatchers.Main).launch {
-            val recipes = withContext(Dispatchers.IO) {
-                recipeRepository.getAllRecipes()
+            withContext(Dispatchers.IO) {
+                recipeRepository.insertRecipe(recipe);
             }
         }
     }

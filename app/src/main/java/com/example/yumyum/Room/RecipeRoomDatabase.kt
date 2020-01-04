@@ -1,9 +1,7 @@
 package com.example.yumyum.Room
 
 import android.content.Context
-import androidx.room.Database
-import androidx.room.Room
-import androidx.room.RoomDatabase
+import androidx.room.*
 import com.example.yumyum.Recipe.Recipe
 
 /*
@@ -13,7 +11,7 @@ import com.example.yumyum.Recipe.Recipe
 // Define what entities to store in our database.
 
 @Database(entities = [Recipe::class], version = 1, exportSchema = false)
-
+@TypeConverters(DataConverter::class)
 abstract class RecipeRoomDatabase : RoomDatabase() {
 
     // Abstract method to get the implementation room makes.

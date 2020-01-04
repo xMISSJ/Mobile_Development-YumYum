@@ -9,9 +9,6 @@ interface RecipeDao {
     @Query("SELECT * FROM recipe_table")
     suspend fun getAllRecipes(): List<Recipe>;
 
-    @Query("DELETE FROM recipe_table")
-    suspend fun deleteAllRecipes(): List<Recipe>;
-
     @Insert
     suspend fun insertRecipe(recipe: Recipe);
 
