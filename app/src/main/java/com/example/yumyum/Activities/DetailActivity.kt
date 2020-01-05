@@ -37,6 +37,8 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
+        recipeRepository = RecipeRepository(this);
+
         setToolbar();
         initViews();
         getRecipesFromDatabase();
@@ -52,17 +54,16 @@ class DetailActivity : AppCompatActivity() {
             // Every recipe item.
             for (iterator in recipes.indices) {
                 // For everything in ingredientsList in recipe.
-                for (index in recipes[iterator].ingredients!!.indices) {
-                    //this@DetailActivity.detailIngredientsList.addAll(recipes[iterator].ingredients[index]);
+                for (index in recipes[iterator].ingredients!!) {
+                    this@DetailActivity.detailIngredientsList.add(index);
+                }
+                for (index in recipes[iterator].instructions!!) {
+                    this@DetailActivity.detailInstructionsList.add(index);
                 }
             }
 
             this@DetailActivity.detailIngredientsList.clear();
             this@DetailActivity.detailInstructionsList.clear();
-
-            this@DetailActivity.detailIngredientsList.clear();
-            //this@DetailActivity.detailInstructionsList.addAll();
-
             this@DetailActivity.detailIngredientAdapter.notifyDataSetChanged();
             this@DetailActivity.detailInstructionAdapter.notifyDataSetChanged();
         }
