@@ -3,6 +3,7 @@ package com.example.yumyum.Activities
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -13,7 +14,6 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.yumyum.Fragments.HomeFragment
 import com.example.yumyum.Instruction.Instruction
 import com.example.yumyum.Instruction.InstructionsAdapter
 import com.example.yumyum.R

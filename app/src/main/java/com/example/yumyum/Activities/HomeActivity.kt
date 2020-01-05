@@ -8,11 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
-
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
-import com.example.yumyum.Fragments.HomeFragment
 import com.example.yumyum.Ingredient.Ingredient
 import com.example.yumyum.Instruction.Instruction
 import com.example.yumyum.R
@@ -25,6 +23,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+
 
 const val REQUEST_CODE = 100;
 
@@ -105,8 +104,11 @@ class HomeActivity : AppCompatActivity() {
                 REQUEST_CODE -> {
                     // On success insert the data in the database.
                     insertInDatabase(data);
-                    val homeFragment = HomeFragment();
-                    supportFragmentManager.beginTransaction().remove(homeFragment).commit();
+
+                    // Reload this activity to show the results of our database.
+                    val refresh = intent;
+                    startActivity(refresh);
+                    finish();
                 }
             }
         }
