@@ -46,7 +46,6 @@ class DetailIngredientAdapter (private val detailIngredients: List<Ingredient>) 
      */
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(ingredient: Ingredient) {
-            val nextLine = System.getProperty("line.separator");
             itemView.tvDetailIngredients.text = " " + ingredient.numerationCharacter + ingredient.ingredient;
         }
     }

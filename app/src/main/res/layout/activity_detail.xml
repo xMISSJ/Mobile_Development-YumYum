@@ -89,7 +89,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:paddingLeft="2dp"
                 android:paddingTop="6dp"
@@ -105,17 +105,17 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:paddingLeft="3dp"
                     android:paddingTop="8dp"
                     android:paddingRight="3dp"
-                    android:paddingBottom="8dp" >
+                    android:paddingBottom="8dp">
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvDetailInstructions"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
 
             </LinearLayout>
