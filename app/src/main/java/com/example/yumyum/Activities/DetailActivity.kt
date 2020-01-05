@@ -61,9 +61,6 @@ class DetailActivity : AppCompatActivity() {
                     this@DetailActivity.detailInstructionsList.add(index);
                 }
             }
-
-            this@DetailActivity.detailIngredientsList.clear();
-            this@DetailActivity.detailInstructionsList.clear();
             this@DetailActivity.detailIngredientAdapter.notifyDataSetChanged();
             this@DetailActivity.detailInstructionAdapter.notifyDataSetChanged();
         }

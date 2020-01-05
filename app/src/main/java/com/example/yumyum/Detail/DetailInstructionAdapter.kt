@@ -45,7 +45,7 @@ class DetailInstructionAdapter (private val detailInstructions: List<Instruction
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(instruction: Instruction) {
             val nextLine = System.getProperty("line.separator");
-            itemView.tvDetailInstruction.text = instruction.step + " " + instruction.instruction + nextLine + nextLine;
+            itemView.tvDetailInstruction.text = instruction.step + nextLine + instruction.instruction;
         }
     }
 }

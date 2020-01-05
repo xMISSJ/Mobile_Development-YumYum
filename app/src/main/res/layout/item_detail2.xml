@@ -8,11 +8,12 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:cardBackgroundColor="@color/cardBackground">
+        app:cardBackgroundColor="@color/cardBackground"
+        app:cardCornerRadius="5dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingTop="2dp">
 
@@ -24,7 +25,7 @@
                 android:paddingTop="4dp"
                 android:paddingRight="10dp"
                 android:paddingBottom="4dp"
-                android:text="@string/ingredient_text"
+                android:text="@string/instruction_hint_text"
                 android:textColor="@color/colorToolbar" />
 
         </LinearLayout>
