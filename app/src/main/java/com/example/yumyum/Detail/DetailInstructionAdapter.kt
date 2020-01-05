@@ -1,12 +1,17 @@
 package com.example.yumyum.Instruction
 
 import android.content.Context
+import android.graphics.Typeface
+import android.text.Spannable
+import android.text.SpannableStringBuilder
+import android.text.style.StyleSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.yumyum.R
 import kotlinx.android.synthetic.main.item_detail2.view.*
+
 
 /*
  * An List of Instruction objects is added to the class constructor
@@ -44,8 +49,14 @@ class DetailInstructionAdapter (private val detailInstructions: List<Instruction
      */
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(instruction: Instruction) {
+
+            // Make text partly bold.
             val nextLine = System.getProperty("line.separator");
-            itemView.tvDetailInstruction.text = instruction.step + nextLine + instruction.instruction;
+            var myString = instruction.step + nextLine + instruction.instruction;
+            val stringBuilder = SpannableStringBuilder (myString)
+            val bold = StyleSpan(Typeface.BOLD);
+            stringBuilder.setSpan(bold, 0, 7, Spannable.SPAN_INCLUSIVE_INCLUSIVE)
+            itemView.tvDetailInstruction.text = stringBuilder;
         }
     }
 }

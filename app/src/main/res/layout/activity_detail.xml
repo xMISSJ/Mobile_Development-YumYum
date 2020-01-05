@@ -45,14 +45,15 @@
                     android:id="@+id/tvDetailIngredientTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto"
+                    android:fontFamily="@font/roboto_bold"
                     android:text="@string/ingredients_activity_title"
                     android:textStyle="bold" />
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvDetailIngredients"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:layout_height="wrap_content"
+                    android:paddingTop="6dp" />
 
             </LinearLayout>
 
@@ -99,24 +100,15 @@
                     android:id="@+id/tvDetailInstructions"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/roboto"
+                    android:fontFamily="@font/roboto_bold"
                     android:text="@string/instructions_add_text"
                     android:textStyle="bold" />
 
-                <LinearLayout
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvDetailInstructions"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:paddingLeft="3dp"
-                    android:paddingTop="8dp"
-                    android:paddingRight="3dp"
-                    android:paddingBottom="8dp">
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvDetailInstructions"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
+                    android:paddingTop="8dp" />
 
             </LinearLayout>
 
