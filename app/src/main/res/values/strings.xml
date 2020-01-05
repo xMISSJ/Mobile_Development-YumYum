@@ -45,5 +45,6 @@
 
     <!-- fragment_rated.xml -->
     <string name="thank_you_text">Thank you text.</string>
+    <string name="dish_title_text">Poffertjes</string>
 
 </resources>

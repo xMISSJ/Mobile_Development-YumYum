@@ -2,6 +2,7 @@ package com.example.yumyum.Recipe
 
 import android.net.Uri
 import android.os.Parcelable
+import android.widget.ImageView
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -22,6 +23,8 @@ data class Recipe (
     // Details screen information.
     var ingredients: ArrayList<Ingredient>?,
     var instructions: ArrayList<Instruction>?,
+
+    var favorite: Boolean?,
 
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")

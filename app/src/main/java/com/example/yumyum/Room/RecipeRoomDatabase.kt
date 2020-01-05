@@ -10,7 +10,7 @@ import com.example.yumyum.Recipe.Recipe
 
 // Define what entities to store in our database.
 
-@Database(entities = [Recipe::class], version = 1, exportSchema = false)
+@Database(entities = [Recipe::class], version = 2, exportSchema = false)
 @TypeConverters(DataConverter::class)
 abstract class RecipeRoomDatabase : RoomDatabase() {
 
@@ -29,7 +29,7 @@ abstract class RecipeRoomDatabase : RoomDatabase() {
             if (recipeRoomDatabaseInstance == null) {
                 synchronized(RecipeRoomDatabase::class.java) {
                     if (recipeRoomDatabaseInstance == null) {
-                        recipeRoomDatabaseInstance = Room.databaseBuilder(context.applicationContext, RecipeRoomDatabase::class.java, DATABASE_NAME).build();
+                        recipeRoomDatabaseInstance = Room.databaseBuilder(context.applicationContext, RecipeRoomDatabase::class.java, DATABASE_NAME).fallbackToDestructiveMigration().build();
                     }
                 }
             }

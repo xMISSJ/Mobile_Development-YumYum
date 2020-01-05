@@ -1,15 +1,23 @@
 package com.example.yumyum.Activities
 
+import android.R.attr.data
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
-import com.example.yumyum.R
 import android.os.Bundle
+import android.util.Base64
+import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.example.yumyum.R
 import kotlinx.android.synthetic.main.activity_recipe.*
+import java.io.ByteArrayOutputStream
+import java.io.InputStream
+
 
 const val PROFILE_PICTURE_REQUEST_CODE = 100;
 
@@ -86,7 +94,7 @@ class RecipeActivity : AppCompatActivity() {
     }
 
     private fun onPictureClick() {
-        val intent = Intent(Intent.ACTION_PICK);
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT);
 
         // Sets the type as image/*. This ensures only components of type image are selected.
         intent.type = "image/*";

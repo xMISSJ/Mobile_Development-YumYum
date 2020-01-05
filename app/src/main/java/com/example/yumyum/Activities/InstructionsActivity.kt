@@ -13,6 +13,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.yumyum.Fragments.HomeFragment
 import com.example.yumyum.Instruction.Instruction
 import com.example.yumyum.Instruction.InstructionsAdapter
 import com.example.yumyum.R
@@ -136,9 +137,8 @@ class InstructionsActivity : AppCompatActivity() {
 
             setResult(Activity.RESULT_OK, resultIntent);
             finish();
-
         } else {
-            Toast.makeText(this, "Please fill in at least one ingredient.", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Please fill in at least one instruction.", Toast.LENGTH_LONG).show();
         }
 
         //Fading animation when going from InstructionsActivity to HomeActivity.

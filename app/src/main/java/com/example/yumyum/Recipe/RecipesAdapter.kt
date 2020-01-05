@@ -12,12 +12,13 @@ import kotlinx.android.synthetic.main.item_recipe.view.*
  * An List of Recipe objects is added to the class constructor
  * so the RecyclerView knows which Recipe objects it needs to display.
  */
-class RecipesAdapter (private val recipes: List<Recipe>) : RecyclerView.Adapter<RecipesAdapter.ViewHolder>() {
+class RecipesAdapter (private val recipes: List<Recipe>, private val onClick: (Recipe) -> Unit) : RecyclerView.Adapter<RecipesAdapter.ViewHolder>() {
     /*
      *  For the context variable the lateinit declaration has been used to let Kotlin
      *  know that this variable will be initialized later (in the onCreateViewHolder method).
      */
     lateinit var context: Context;
+    lateinit var favoriteImage: View;
 
     /*
      * In onCreateViewHolder a ViewHolder object is created which inflates the layout file we created (item_instruction.xml).
@@ -42,7 +43,15 @@ class RecipesAdapter (private val recipes: List<Recipe>) : RecyclerView.Adapter<
      * The ViewHolders bind method uses kotlin synthetics to get the
      * references from the layout file for the ImageView and TextView.
      */
-    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+    inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
+    {
+        init {
+            itemView.setOnClickListener{
+                // AdapterPosition is position of the item represented by the ViewHolder.
+                onClick(recipes[adapterPosition]);
+            }
+        }
+
         fun bind(recipe: Recipe) {
             itemView.tvRecipeName.text = recipe.name;
             itemView.ivDish.setImageURI(recipe.image);

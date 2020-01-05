@@ -105,6 +105,8 @@ class HomeActivity : AppCompatActivity() {
                 REQUEST_CODE -> {
                     // On success insert the data in the database.
                     insertInDatabase(data);
+                    val homeFragment = HomeFragment();
+                    supportFragmentManager.beginTransaction().remove(homeFragment).commit();
                 }
             }
         }
@@ -128,7 +130,8 @@ class HomeActivity : AppCompatActivity() {
             servings = recipeServings?.toInt(),
             preparationTime = recipePreparationTime?.toInt(),
             ingredients = recipeIngredients,
-            instructions = recipeInstructions
+            instructions = recipeInstructions,
+            favorite = false
         )
 
         // Insert into database.

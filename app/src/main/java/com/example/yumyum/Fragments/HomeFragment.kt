@@ -1,16 +1,15 @@
 package com.example.yumyum.Fragments
 
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.yumyum.Activities.HomeActivity
-
+import com.example.yumyum.Activities.DetailActivity
 import com.example.yumyum.R
 import com.example.yumyum.Recipe.Recipe
 import com.example.yumyum.Recipe.RecipesAdapter
@@ -22,10 +21,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
+
 class HomeFragment : Fragment() {
 
     private val recipesList = arrayListOf<Recipe>();
-    private val recipesAdapter = RecipesAdapter(recipesList);
+    private val recipesAdapter = RecipesAdapter(recipesList) {
+        checkFavorite();
+    }
 
     private lateinit var myView: View;
     private lateinit var recipeRepository: RecipeRepository;
@@ -48,19 +50,20 @@ class HomeFragment : Fragment() {
     }
 
     private fun initViews() {
-        rvRecipes.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false);
+        // Reverse Layout is true.
+        val layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, true);
+        rvRecipes.layoutManager = layoutManager;
+        layoutManager.stackFromEnd = true;
         rvRecipes.adapter = recipesAdapter;
 
         createItemTouchHelper().attachToRecyclerView(rvRecipes);
     }
 
     private fun getGamesFromDatabase() {
-        Toast.makeText(context, "HOI", Toast.LENGTH_LONG).show();
         CoroutineScope(Dispatchers.Main).launch {
             val recipes = withContext(Dispatchers.IO) {
                 recipeRepository.getAllRecipes();
             }
-
             this@HomeFragment.recipesList.clear();
             this@HomeFragment.recipesList.addAll(recipes);
             this@HomeFragment.recipesAdapter.notifyDataSetChanged();
@@ -102,6 +105,14 @@ class HomeFragment : Fragment() {
             }
             getGamesFromDatabase()
         }
+    }
+
+    private fun checkFavorite() {
+        val intent = Intent(this@HomeFragment.context, DetailActivity::class.java);
+        startActivity(intent);
+
+        // Animation to fade into the AddActivity.
+        activity?.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
 }
