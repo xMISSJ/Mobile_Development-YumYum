@@ -5,21 +5,17 @@ import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.widget.Toolbar
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.yumyum.Detail.DetailIngredient
 import com.example.yumyum.Detail.DetailIngredientAdapter
 import com.example.yumyum.Ingredient.Ingredient
 import com.example.yumyum.Instruction.DetailInstructionAdapter
 import com.example.yumyum.Instruction.Instruction
 import com.example.yumyum.R
-import com.example.yumyum.Room.RecipeRepository
+import com.example.yumyum.ViewModel_LiveData.GeneralViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
-import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 class DetailActivity : AppCompatActivity() {
 
@@ -31,39 +27,48 @@ class DetailActivity : AppCompatActivity() {
     private val detailInstructionAdapter = DetailInstructionAdapter(detailInstructionsList);
     private val detailIngredientAdapter = DetailIngredientAdapter(detailIngredientsList);
 
-    private lateinit var recipeRepository: RecipeRepository;
+    private lateinit var viewModel: GeneralViewModel;
+
+    private var id: Long? = null;
+    private var recipeName: String? = null;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        recipeRepository = RecipeRepository(this);
+        id = intent.getLongExtra("ID", 0);
+        recipeName = intent.getStringExtra("NAME");
+        viewModel = ViewModelProviders.of(this).get(GeneralViewModel::class.java);
 
-        setToolbar();
-        initViews();
         getRecipesFromDatabase();
+
+        setToolbar(recipeName);
+        initViews();
     }
 
     private fun getRecipesFromDatabase() {
-        CoroutineScope(Dispatchers.Main).launch {
-            val recipes = withContext(Dispatchers.IO) {
-                recipeRepository.getAllRecipes();
-            }
+        // Observe recipes from the view model, update the list when the data is changed.
+        viewModel.recipes.observe(this, Observer { recipes ->
+            this@DetailActivity.detailInstructionsList.clear();
             this@DetailActivity.detailIngredientsList.clear();
 
             // Every recipe item.
             for (iterator in recipes.indices) {
-                // For everything in ingredientsList in recipe.
-                for (index in recipes[iterator].ingredients!!) {
-                    this@DetailActivity.detailIngredientsList.add(index);
-                }
-                for (index in recipes[iterator].instructions!!) {
-                    this@DetailActivity.detailInstructionsList.add(index);
+                if (recipes[iterator].id == id) {
+                    // For everything in ingredientsList in recipe.
+                    for (index in recipes[iterator].ingredients!!) {
+                        this@DetailActivity.detailIngredientsList.add(index);
+                    }
+
+                    for (index in recipes[iterator].instructions!!) {
+                        this@DetailActivity.detailInstructionsList.add(index);
+                    }
                 }
             }
+
             this@DetailActivity.detailIngredientAdapter.notifyDataSetChanged();
             this@DetailActivity.detailInstructionAdapter.notifyDataSetChanged();
-        }
+        })
     }
 
     private fun initViews() {
@@ -74,11 +79,12 @@ class DetailActivity : AppCompatActivity() {
         rvDetailInstructions.adapter = detailInstructionAdapter;
     }
 
-    private fun setToolbar() {
+    private fun setToolbar(name: String?) {
         view = findViewById(R.id.parentDetail);
         toolbar = view.findViewById(R.id.toolbarDetail);
         setSupportActionBar(toolbar);
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
+        toolbar.title = name;
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

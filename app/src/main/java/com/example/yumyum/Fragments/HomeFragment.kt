@@ -6,6 +6,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -13,29 +15,25 @@ import com.example.yumyum.Activities.DetailActivity
 import com.example.yumyum.R
 import com.example.yumyum.Recipe.Recipe
 import com.example.yumyum.Recipe.RecipesAdapter
-import com.example.yumyum.Room.RecipeRepository
+import com.example.yumyum.ViewModel_LiveData.GeneralViewModel
 import kotlinx.android.synthetic.main.content_home.view.*
 import kotlinx.android.synthetic.main.fragment_home.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 
 class HomeFragment : Fragment() {
 
     private val recipesList = arrayListOf<Recipe>();
     private val recipesAdapter = RecipesAdapter(recipesList) {
-        checkFavorite();
+        openDetailActivity();
     }
 
     private lateinit var myView: View;
-    private lateinit var recipeRepository: RecipeRepository;
+
+    private lateinit var viewModel: GeneralViewModel;
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         myView = inflater.inflate(R.layout.fragment_home, container, false);
-        recipeRepository = RecipeRepository(activity!!.applicationContext);
         return myView;
     }
 
@@ -45,8 +43,7 @@ class HomeFragment : Fragment() {
         myView.rootView.ivRecipeBook.setImageResource(R.drawable.recipe_book_small);
 
         initViews();
-
-        getRecipesFromDatabase();
+        initViewModel();
     }
 
     private fun initViews() {
@@ -59,15 +56,16 @@ class HomeFragment : Fragment() {
         createItemTouchHelper().attachToRecyclerView(rvRecipes);
     }
 
-    private fun getRecipesFromDatabase() {
-        CoroutineScope(Dispatchers.Main).launch {
-            val recipes = withContext(Dispatchers.IO) {
-                recipeRepository.getAllRecipes();
-            }
-            this@HomeFragment.recipesList.clear();
-            this@HomeFragment.recipesList.addAll(recipes);
-            this@HomeFragment.recipesAdapter.notifyDataSetChanged();
-        }
+    // Instead of the getRecipes. Now using initViewModel() with LiveData.
+    private fun initViewModel() {
+        viewModel = ViewModelProviders.of(this).get(GeneralViewModel::class.java);
+
+        // Observe recipes from the view model, update the list when the data is changed.
+        viewModel.recipes.observe(this, Observer { recipes ->
+            this@HomeFragment.recipesList.clear()
+            this@HomeFragment.recipesList.addAll(recipes)
+            recipesAdapter.notifyDataSetChanged()
+        })
     }
 
     /**
@@ -92,24 +90,19 @@ class HomeFragment : Fragment() {
                 val recipeToDelete = recipesList[position];
 
                 // Delete recipe at this position.
-                deleteRecipe(recipeToDelete)
+                viewModel.deleteRecipe(recipeToDelete);
             }
         }
         return ItemTouchHelper(callback)
     }
 
-    private fun deleteRecipe(recipe: Recipe) {
-        CoroutineScope(Dispatchers.Main).launch {
-            withContext(Dispatchers.IO) {
-                recipeRepository.deleteRecipe(recipe)
-            }
-            getRecipesFromDatabase()
-        }
-    }
-
-    private fun checkFavorite() {
-        val intent = Intent(this@HomeFragment.context, DetailActivity::class.java);
-        startActivity(intent);
+    private fun openDetailActivity() {
+        val detailIntent = Intent(this@HomeFragment.context, DetailActivity::class.java);
+        val recipeId = recipesAdapter.recipeId;
+        val recipeName = recipesAdapter.recipeName;
+        detailIntent.putExtra("ID", recipeId);
+        detailIntent.putExtra("NAME", recipeName);
+        startActivity(detailIntent);
 
         // Animation to fade into the AddActivity.
         activity?.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);

@@ -18,7 +18,8 @@ class RecipesAdapter (private val recipes: List<Recipe>, private val onClick: (R
      *  know that this variable will be initialized later (in the onCreateViewHolder method).
      */
     lateinit var context: Context;
-    lateinit var favoriteImage: View;
+    var recipeId: Long? = null;
+    var recipeName: String? = null;
 
     /*
      * In onCreateViewHolder a ViewHolder object is created which inflates the layout file we created (item_instruction.xml).
@@ -49,8 +50,11 @@ class RecipesAdapter (private val recipes: List<Recipe>, private val onClick: (R
             itemView.setOnClickListener{
                 // AdapterPosition is position of the item represented by the ViewHolder.
                 onClick(recipes[adapterPosition]);
+                recipeId = recipes[adapterPosition].id;
+                recipeName = recipes[adapterPosition].name;
             }
         }
+
 
         fun bind(recipe: Recipe) {
             itemView.tvRecipeName.text = recipe.name;

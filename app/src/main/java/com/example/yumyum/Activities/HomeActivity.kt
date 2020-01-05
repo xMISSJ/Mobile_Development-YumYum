@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
@@ -15,15 +16,10 @@ import com.example.yumyum.Ingredient.Ingredient
 import com.example.yumyum.Instruction.Instruction
 import com.example.yumyum.R
 import com.example.yumyum.Recipe.Recipe
-import com.example.yumyum.Room.RecipeRepository
+import com.example.yumyum.ViewModel_LiveData.GeneralViewModel
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.content_home.*
 import kotlinx.android.synthetic.main.default_toolbar.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
-
 
 const val REQUEST_CODE = 100;
 
@@ -35,14 +31,14 @@ class HomeActivity : AppCompatActivity() {
 
     private var fragment: Fragment? = null;
 
-    private lateinit var recipeRepository: RecipeRepository;
+    private lateinit var viewModel: GeneralViewModel;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        recipeRepository = RecipeRepository(this);
         fragment = supportFragmentManager.findFragmentById(R.id.homeFragment);
+        viewModel = ViewModelProviders.of(this).get(GeneralViewModel::class.java);
 
         ivProfileImage.setOnClickListener {
             onProfileImageClick();
@@ -137,11 +133,7 @@ class HomeActivity : AppCompatActivity() {
         )
 
         // Insert into database.
-        CoroutineScope(Dispatchers.Main).launch {
-            withContext(Dispatchers.IO) {
-                recipeRepository.insertRecipe(recipe);
-            }
-        }
+        viewModel.insertRecipe(recipe);
     }
 }
 
