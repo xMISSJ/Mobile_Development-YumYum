@@ -8,4 +8,5 @@
     <color name="splashBackgroundColor">#D9D9D9</color>
     <color name="white">#FFFFFF</color>
     <color name="pink">#FC3768</color>
+    <color name="cardBackground">#F3F3F3</color>
 </resources>

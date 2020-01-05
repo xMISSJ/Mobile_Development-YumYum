@@ -1,22 +1,15 @@
 package com.example.yumyum.Activities
 
-import android.R.attr.data
 import android.app.Activity
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.util.Base64
-import android.util.Log
 import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.example.yumyum.R
 import kotlinx.android.synthetic.main.activity_recipe.*
-import java.io.ByteArrayOutputStream
-import java.io.InputStream
 
 
 const val PROFILE_PICTURE_REQUEST_CODE = 100;
@@ -24,7 +17,7 @@ const val PROFILE_PICTURE_REQUEST_CODE = 100;
 class RecipeActivity : AppCompatActivity() {
 
     private lateinit var toolbar: Toolbar;
-    private var profileImageUri: Uri? = null
+    private var recipeImageUri: Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
@@ -69,7 +62,7 @@ class RecipeActivity : AppCompatActivity() {
 
         if (etRecipeName.text.isNotBlank() && etServings.text.isNotBlank() && etPreparationTime.text.isNotBlank()) {
             val recipeName = etRecipeName.text.toString();
-            val recipeImage = profileImageUri;
+            val recipeImage = recipeImageUri;
             val servings = etServings.text.toString();
             val preparationTime = etPreparationTime.text.toString();
 
@@ -108,8 +101,8 @@ class RecipeActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 PROFILE_PICTURE_REQUEST_CODE -> {
-                    profileImageUri = data?.data;
-                    ivProfilePicture.setImageURI(profileImageUri);
+                    recipeImageUri = data?.data;
+                    ivProfilePicture.setImageURI(recipeImageUri);
                 }
             }
         }

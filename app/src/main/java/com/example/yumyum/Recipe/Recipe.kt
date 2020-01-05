@@ -2,7 +2,6 @@ package com.example.yumyum.Recipe
 
 import android.net.Uri
 import android.os.Parcelable
-import android.widget.ImageView
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -30,4 +29,12 @@ data class Recipe (
     @ColumnInfo(name = "id")
     var id: Long? = null
 
-) : Parcelable
+) : Parcelable {
+    fun getIngredientsList(): Int? {
+        return ingredients?.size;
+    }
+
+    fun getInstructionsList(): Int? {
+        return instructions?.size;
+    }
+}

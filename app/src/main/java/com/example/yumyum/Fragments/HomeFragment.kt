@@ -46,7 +46,7 @@ class HomeFragment : Fragment() {
 
         initViews();
 
-        getGamesFromDatabase();
+        getRecipesFromDatabase();
     }
 
     private fun initViews() {
@@ -59,7 +59,7 @@ class HomeFragment : Fragment() {
         createItemTouchHelper().attachToRecyclerView(rvRecipes);
     }
 
-    private fun getGamesFromDatabase() {
+    private fun getRecipesFromDatabase() {
         CoroutineScope(Dispatchers.Main).launch {
             val recipes = withContext(Dispatchers.IO) {
                 recipeRepository.getAllRecipes();
@@ -103,7 +103,7 @@ class HomeFragment : Fragment() {
             withContext(Dispatchers.IO) {
                 recipeRepository.deleteRecipe(recipe)
             }
-            getGamesFromDatabase()
+            getRecipesFromDatabase()
         }
     }
 
