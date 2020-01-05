@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.yumyum.R
 import kotlinx.android.synthetic.main.item_recipe.view.*
@@ -17,9 +18,8 @@ class RecipesAdapter (private val recipes: List<Recipe>, private val onClick: (R
      *  For the context variable the lateinit declaration has been used to let Kotlin
      *  know that this variable will be initialized later (in the onCreateViewHolder method).
      */
-    lateinit var context: Context;
-    var recipeId: Long? = null;
-    var recipeName: String? = null;
+    lateinit var context: Context
+    private var favoriteImage : ImageView? = null;
 
     /*
      * In onCreateViewHolder a ViewHolder object is created which inflates the layout file we created (item_instruction.xml).
@@ -47,20 +47,18 @@ class RecipesAdapter (private val recipes: List<Recipe>, private val onClick: (R
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     {
         init {
+            favoriteImage = itemView.findViewById(R.id.ivFavorite);
             itemView.setOnClickListener{
                 // AdapterPosition is position of the item represented by the ViewHolder.
                 onClick(recipes[adapterPosition]);
-                recipeId = recipes[adapterPosition].id;
-                recipeName = recipes[adapterPosition].name;
             }
         }
-
 
         fun bind(recipe: Recipe) {
             itemView.tvRecipeName.text = recipe.name;
             itemView.ivDish.setImageURI(recipe.image);
-            itemView.tvServingTime.text = recipe.preparationTime.toString();
-            itemView.tvServingAmount.text = recipe.servings.toString();
+            itemView.tvServingTime.text = recipe.preparationTime.toString() + " min.";
+            itemView.tvServingAmount.text = recipe.servings.toString() + " people.";
             itemView.ivFavorite.setImageResource(R.drawable.ic_favorite);
         }
     }

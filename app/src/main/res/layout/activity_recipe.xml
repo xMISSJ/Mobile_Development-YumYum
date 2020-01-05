@@ -9,7 +9,7 @@
 
     <include
         android:id="@+id/toolbarRecipe"
-        layout="@layout/recipe_toolbar" />
+        layout="@layout/add_toolbar" />
 
     <ImageView
         android:id="@+id/ivCookingPotSmall"

@@ -16,6 +16,7 @@ import com.example.yumyum.Instruction.Instruction
 import com.example.yumyum.R
 import com.example.yumyum.ViewModel_LiveData.GeneralViewModel
 import kotlinx.android.synthetic.main.activity_detail.*
+import kotlinx.android.synthetic.main.add_toolbar.view.*
 
 class DetailActivity : AppCompatActivity() {
 
@@ -29,21 +30,24 @@ class DetailActivity : AppCompatActivity() {
 
     private lateinit var viewModel: GeneralViewModel;
 
-    private var id: Long? = null;
+    private var recipeId: Long? = null;
     private var recipeName: String? = null;
+    private var recipeImage: Int? = null;
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        id = intent.getLongExtra("ID", 0);
+        recipeId = intent.getLongExtra("ID", 0);
         recipeName = intent.getStringExtra("NAME");
+        recipeImage = intent.getIntExtra("IMAGE", 0);
+
         viewModel = ViewModelProviders.of(this).get(GeneralViewModel::class.java);
 
         getRecipesFromDatabase();
 
-        setToolbar(recipeName);
         initViews();
+        setToolbar();
     }
 
     private fun getRecipesFromDatabase() {
@@ -54,7 +58,7 @@ class DetailActivity : AppCompatActivity() {
 
             // Every recipe item.
             for (iterator in recipes.indices) {
-                if (recipes[iterator].id == id) {
+                if (recipes[iterator].id == recipeId) {
                     // For everything in ingredientsList in recipe.
                     for (index in recipes[iterator].ingredients!!) {
                         this@DetailActivity.detailIngredientsList.add(index);
@@ -63,6 +67,8 @@ class DetailActivity : AppCompatActivity() {
                     for (index in recipes[iterator].instructions!!) {
                         this@DetailActivity.detailInstructionsList.add(index);
                     }
+
+                    recipeName = recipes[iterator].name;
                 }
             }
 
@@ -75,16 +81,17 @@ class DetailActivity : AppCompatActivity() {
         rvDetailIngredients.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rvDetailIngredients.adapter = detailIngredientAdapter;
 
-        rvDetailInstructions.layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false);
+        rvDetailInstructions.layoutManager =
+            LinearLayoutManager(this, RecyclerView.VERTICAL, false);
         rvDetailInstructions.adapter = detailInstructionAdapter;
     }
 
-    private fun setToolbar(name: String?) {
+    private fun setToolbar() {
         view = findViewById(R.id.parentDetail);
         toolbar = view.findViewById(R.id.toolbarDetail);
         setSupportActionBar(toolbar);
         supportActionBar?.setDisplayHomeAsUpEnabled(true);
-        toolbar.title = name;
+        toolbar.tvTitle.text = recipeName;
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

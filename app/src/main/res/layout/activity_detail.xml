@@ -8,6 +8,10 @@
     android:background="@color/backgroundColor"
     tools:context=".Activities.DetailActivity">
 
+    <include
+        android:id="@+id/toolbarDetail"
+        layout="@layout/add_toolbar"></include>
+
     <LinearLayout
         android:id="@+id/linearIngredients"
         android:layout_width="0dp"
@@ -61,10 +65,6 @@
 
     </LinearLayout>
 
-    <include
-        android:id="@+id/toolbarDetail"
-        layout="@layout/detail_toolbar"></include>
-
     <LinearLayout
         android:id="@+id/linearInstructions"
         android:layout_width="0dp"
@@ -94,7 +94,7 @@
                 android:orientation="vertical"
                 android:paddingLeft="2dp"
                 android:paddingTop="6dp"
-                android:paddingBottom="4dp">
+                android:paddingBottom="0dp">
 
                 <TextView
                     android:id="@+id/tvDetailInstructions"

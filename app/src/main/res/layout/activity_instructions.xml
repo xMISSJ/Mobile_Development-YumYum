@@ -39,7 +39,7 @@
 
     <include
         android:id="@+id/toolbarInstructions"
-        layout="@layout/instructions_toolbar"></include>
+        layout="@layout/add_toolbar"></include>
 
     <ImageView
         android:id="@+id/ivCookingPotSmall3"

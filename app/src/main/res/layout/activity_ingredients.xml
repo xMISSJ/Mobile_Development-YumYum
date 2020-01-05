@@ -54,7 +54,7 @@
 
     <include
         android:id="@+id/toolbarIngredients"
-        layout="@layout/ingredients_toolbar"></include>
+        layout="@layout/add_toolbar"></include>
 
     <ImageView
         android:id="@+id/ivCookingPotSmall2"

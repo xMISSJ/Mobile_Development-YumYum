@@ -23,18 +23,8 @@ data class Recipe (
     var ingredients: ArrayList<Ingredient>?,
     var instructions: ArrayList<Instruction>?,
 
-    var favorite: Boolean?,
-
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     var id: Long? = null
 
-) : Parcelable {
-    fun getIngredientsList(): Int? {
-        return ingredients?.size;
-    }
-
-    fun getInstructionsList(): Int? {
-        return instructions?.size;
-    }
-}
+) : Parcelable

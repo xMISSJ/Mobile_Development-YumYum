@@ -30,7 +30,6 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var view: View;
 
     private var fragment: Fragment? = null;
-
     private lateinit var viewModel: GeneralViewModel;
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -128,8 +127,7 @@ class HomeActivity : AppCompatActivity() {
             servings = recipeServings?.toInt(),
             preparationTime = recipePreparationTime?.toInt(),
             ingredients = recipeIngredients,
-            instructions = recipeInstructions,
-            favorite = false
+            instructions = recipeInstructions
         )
 
         // Insert into database.

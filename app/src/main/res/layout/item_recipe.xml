@@ -38,7 +38,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:paddingLeft="25dp"
+                android:paddingLeft="20dp"
                 android:paddingTop="25dp">
 
                 <TextView
@@ -78,7 +78,7 @@
                         android:id="@+id/ivServingAmount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="8dp"
+                        android:paddingLeft="4dp"
                         app:srcCompat="@drawable/ic_person" />
 
                     <TextView
@@ -86,7 +86,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/roboto"
-                        android:paddingLeft="5dp"
+                        android:paddingLeft="2dp"
                         android:paddingTop="2dp"
                         android:paddingRight="5dp"
                         android:text="@string/recipe_serving_amount_text"

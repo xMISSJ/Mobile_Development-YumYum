@@ -10,7 +10,7 @@ import com.example.yumyum.Recipe.Recipe
 
 // Define what entities to store in our database.
 
-@Database(entities = [Recipe::class], version = 2, exportSchema = false)
+@Database(entities = [Recipe::class], version = 1, exportSchema = false)
 @TypeConverters(DataConverter::class)
 abstract class RecipeRoomDatabase : RoomDatabase() {
 

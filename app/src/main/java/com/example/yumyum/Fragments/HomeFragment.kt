@@ -5,6 +5,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -22,13 +24,18 @@ import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
 
+    private var recipeId: Long? = null;
+    private var recipeName: String? = null;
+
     private val recipesList = arrayListOf<Recipe>();
     private val recipesAdapter = RecipesAdapter(recipesList) {
+        recipeId = it.id;
+        recipeName = it.name;
+
         openDetailActivity();
     }
 
     private lateinit var myView: View;
-
     private lateinit var viewModel: GeneralViewModel;
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -98,14 +105,12 @@ class HomeFragment : Fragment() {
 
     private fun openDetailActivity() {
         val detailIntent = Intent(this@HomeFragment.context, DetailActivity::class.java);
-        val recipeId = recipesAdapter.recipeId;
-        val recipeName = recipesAdapter.recipeName;
         detailIntent.putExtra("ID", recipeId);
         detailIntent.putExtra("NAME", recipeName);
+
         startActivity(detailIntent);
 
         // Animation to fade into the AddActivity.
         activity?.overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
-
 }
