@@ -26,4 +26,10 @@ class GeneralViewModel (application: Application) : AndroidViewModel(application
             recipeRepository.deleteRecipe(recipe);
         }
     }
+
+    fun deleteAllRecipes() {
+        ioScope.launch {
+            recipeRepository.deleteAllRecipes();
+        }
+    }
 }

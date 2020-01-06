@@ -2,11 +2,10 @@ package com.example.yumyum.Fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -28,7 +27,7 @@ class HomeFragment : Fragment() {
     private var recipeName: String? = null;
 
     private val recipesList = arrayListOf<Recipe>();
-    private val recipesAdapter = RecipesAdapter(recipesList) {
+    val recipesAdapter = RecipesAdapter(recipesList) {
         recipeId = it.id;
         recipeName = it.name;
 
@@ -38,9 +37,14 @@ class HomeFragment : Fragment() {
     private lateinit var myView: View;
     private lateinit var viewModel: GeneralViewModel;
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         myView = inflater.inflate(R.layout.fragment_home, container, false);
+
         return myView;
     }
 
@@ -64,14 +68,14 @@ class HomeFragment : Fragment() {
     }
 
     // Instead of the getRecipes. Now using initViewModel() with LiveData.
-    private fun initViewModel() {
+    fun initViewModel() {
         viewModel = ViewModelProviders.of(this).get(GeneralViewModel::class.java);
 
         // Observe recipes from the view model, update the list when the data is changed.
         viewModel.recipes.observe(this, Observer { recipes ->
-            this@HomeFragment.recipesList.clear()
-            this@HomeFragment.recipesList.addAll(recipes)
-            recipesAdapter.notifyDataSetChanged()
+            this@HomeFragment.recipesList.clear();
+            this@HomeFragment.recipesList.addAll(recipes);
+            recipesAdapter.notifyDataSetChanged();
         })
     }
 
@@ -87,7 +91,11 @@ class HomeFragment : Fragment() {
         val callback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
 
             // Enables or Disables the ability to move items up and down.
-            override fun onMove(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean {
                 return false;
             }
 

@@ -1,11 +1,14 @@
 package com.example.yumyum.Recipe
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.yumyum.Activities.HomeActivity
 import com.example.yumyum.R
 import kotlinx.android.synthetic.main.item_recipe.view.*
 
@@ -19,7 +22,6 @@ class RecipesAdapter (private val recipes: List<Recipe>, private val onClick: (R
      *  know that this variable will be initialized later (in the onCreateViewHolder method).
      */
     lateinit var context: Context
-    private var favoriteImage : ImageView? = null;
 
     /*
      * In onCreateViewHolder a ViewHolder object is created which inflates the layout file we created (item_instruction.xml).
@@ -47,7 +49,6 @@ class RecipesAdapter (private val recipes: List<Recipe>, private val onClick: (R
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView)
     {
         init {
-            favoriteImage = itemView.findViewById(R.id.ivFavorite);
             itemView.setOnClickListener{
                 // AdapterPosition is position of the item represented by the ViewHolder.
                 onClick(recipes[adapterPosition]);
@@ -55,11 +56,25 @@ class RecipesAdapter (private val recipes: List<Recipe>, private val onClick: (R
         }
 
         fun bind(recipe: Recipe) {
+            var favorite = false;
+
             itemView.tvRecipeName.text = recipe.name;
             itemView.ivDish.setImageURI(recipe.image);
             itemView.tvServingTime.text = recipe.preparationTime.toString() + " min.";
             itemView.tvServingAmount.text = recipe.servings.toString() + " people.";
-            itemView.ivFavorite.setImageResource(R.drawable.ic_favorite);
+
+            // Makes it able for the user to favorite and unfavorite.
+            itemView.ivFavorite.setOnClickListener {
+                if (favorite) {
+                    itemView.ivFavorite.setImageResource(R.drawable.ic_favorited);
+                    favorite = false;
+                } else if (!favorite) {
+                    itemView.ivFavorite.setImageResource(R.drawable.ic_favorite);
+                    favorite = true;
+                }
+            }
         }
     }
+
+
 }
