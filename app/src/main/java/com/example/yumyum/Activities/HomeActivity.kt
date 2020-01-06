@@ -40,26 +40,12 @@ class HomeActivity : AppCompatActivity() {
         fragment = supportFragmentManager.findFragmentById(R.id.homeFragment);
         viewModel = ViewModelProviders.of(this).get(GeneralViewModel::class.java);
 
-
-        ivProfileImage.setOnClickListener {
-            onProfileImageClick();
-        }
-
         btnAddRecipe.setOnClickListener {
             onAddClick();
         }
 
         setToolbar();
         initNavigation();
-    }
-
-    private fun onProfileImageClick() {
-        // From HomeActivity to ProfileActivity.
-        val nextIntent = Intent(this@HomeActivity, ProfileActivity::class.java);
-        startActivity(nextIntent);
-
-        // Animation to fade into the ProfileActivity.
-        overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
     }
 
     private fun onAddClick() {

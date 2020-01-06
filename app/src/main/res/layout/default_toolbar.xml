@@ -6,12 +6,6 @@
     android:layout_height="?attr/actionBarSize"
     android:background="@color/colorToolbar">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/ivProfileImage"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/profile_picture_small" />
-
     <androidx.appcompat.widget.AppCompatImageView
         android:layout_width="135dp"
         android:layout_height="45dp"
