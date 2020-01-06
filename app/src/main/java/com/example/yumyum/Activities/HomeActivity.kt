@@ -70,11 +70,9 @@ class HomeActivity : AppCompatActivity() {
         // The NavController.
         val navController = findNavController(R.id.navHostFragment);
 
-        // Connect the NavController with the BottomNavigationView.
-        NavigationUI.setupWithNavController(navView, navController);
-
         // Connect the navHostFragment with the Toolbar.
         val appBarConfiguration = AppBarConfiguration(navController.graph);
+        NavigationUI.setupWithNavController(navView, navController);
 
         // Automatically handles the back button.
         // toolbar.setupWithNavController(navController, appBarConfiguration);
